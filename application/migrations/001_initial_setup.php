@@ -79,41 +79,40 @@ class Migration_Initial_setup extends CI_Migration {
 		");
 	
 
-		$this->db->query("
-			INSERT INTO `categories` (`category_id`, `category`) VALUES
-				(1, 'Computers'),
-				(2, 'Movies'),
-				(3, 'Music'),
-				(4, 'Video Games');
-		");
-		$this->db->query("
-			INSERT INTO `statuses` (`status_id`, `status`) VALUES
-				(1, 'Active'),
-				(2, 'Inactive');
-		");
-		$this->db->query("
-			INSERT INTO `types` (`type_id`, `type`) VALUES
-				(1, 'Cool'),
-				(2, 'Hilarious'),
-				(3, 'Lame'),
-				(4, 'test');
-		");
+		// $this->db->query("
+			// INSERT INTO `categories` (`category_id`, `category`) VALUES
+				// (1, 'Computers'),
+				// (2, 'Movies'),
+				// (3, 'Music'),
+				// (4, 'Video Games');
+		// ");
+		// $this->db->query("
+			// INSERT INTO `statuses` (`status_id`, `status`) VALUES
+				// (1, 'Active'),
+				// (2, 'Inactive');
+		// ");
+		// $this->db->query("
+			// INSERT INTO `types` (`type_id`, `type`) VALUES
+				// (1, 'Cool'),
+				// (2, 'Hilarious'),
+				// (3, 'Lame'),
+				// (4, 'test');
+		// ");
 		$this->db->query("
 			INSERT INTO `sites` (`site_id`, `name`, `url`, `default`) VALUES
-				(1, 'Default', 'www.default.com', 1),
-				(2, 'Test', 'http://www.wtf.com', 0);
+				(1, 'Default', 'www.default.com', 1)
 		");
-		$this->db->query("
-			INSERT INTO `links` (`link_id`, `site_id`, `url`, `text`, `type_id`, `status_id`, `category_id`, `contact_email`, `contact_name`, `date`, `location`, `notes`) VALUES
-				(1, 1, 'http://www.a.com', 'oyfg', 1, 1, 1, 'jfletch@gmail.com', 'Jason Fletcher', '2012-04-27', 'asdasdas', ''),
-				(2, 1, 'http://www.f.com', 'qweqed', 1, 2, 2, 'jfletch@gmail.com', 'Jason Fletcher', '2012-03-28', 'asdasdas', 'asdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdad'),
-				(3, 1, 'http://www.c.com', 'vbhfg', 1, 2, 2, 'jfletch@gmail.com', 'John Smith', '2012-01-27', 'asdasdas', ''),
-				(4, 1, 'http://www.b.com', 'rwerw', 1, 1, 3, 'jfletch@gmail.com', 'John Smith', '2012-07-04', 'asdasdas', ''),
-				(5, 1, 'http://www.q.com', 'vbxcv', 1, 1, 1, 'jfletch@gmail.com', 'John Smith', '2012-07-22', 'asdasdas', ''),
-				(6, 1, 'http://www.z.com', 'tert', 2, 2, 2, 'jfletch@gmail.com', 'John Smith', '1912-07-27', 'asdasdas', ''),
-				(7, 1, 'http://www.v.com', 'asda', 3, 1, 1, 'jfletch@gmail.com', 'John Smith', '2013-07-27', 'asdasdas', ''),
-				(8, 1, 'http://www.u.com', 'bha', 4, 2, 4, 'jfletch@gmail.com', 'John Smith', '2011-07-27', 'asdasdas', '');
-		");
+		// $this->db->query("
+			// INSERT INTO `links` (`link_id`, `site_id`, `url`, `text`, `type_id`, `status_id`, `category_id`, `contact_email`, `contact_name`, `date`, `location`, `notes`) VALUES
+				// (1, 1, 'http://www.a.com', 'oyfg', 1, 1, 1, 'jfletch@gmail.com', 'Jason Fletcher', '2012-04-27', 'asdasdas', ''),
+				// (2, 1, 'http://www.f.com', 'qweqed', 1, 2, 2, 'jfletch@gmail.com', 'Jason Fletcher', '2012-03-28', 'asdasdas', 'asdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdadasdad'),
+				// (3, 1, 'http://www.c.com', 'vbhfg', 1, 2, 2, 'jfletch@gmail.com', 'John Smith', '2012-01-27', 'asdasdas', ''),
+				// (4, 1, 'http://www.b.com', 'rwerw', 1, 1, 3, 'jfletch@gmail.com', 'John Smith', '2012-07-04', 'asdasdas', ''),
+				// (5, 1, 'http://www.q.com', 'vbxcv', 1, 1, 1, 'jfletch@gmail.com', 'John Smith', '2012-07-22', 'asdasdas', ''),
+				// (6, 1, 'http://www.z.com', 'tert', 2, 2, 2, 'jfletch@gmail.com', 'John Smith', '1912-07-27', 'asdasdas', ''),
+				// (7, 1, 'http://www.v.com', 'asda', 3, 1, 1, 'jfletch@gmail.com', 'John Smith', '2013-07-27', 'asdasdas', ''),
+				// (8, 1, 'http://www.u.com', 'bha', 4, 2, 4, 'jfletch@gmail.com', 'John Smith', '2011-07-27', 'asdasdas', '');
+		// ");
 		$this->db->query("
 			INSERT INTO `users` (`id`, `username`, `password_hash`) VALUES
 				(1, 'admin', '397bc74869cae58efb31dffa0287c892');
