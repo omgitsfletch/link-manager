@@ -10,7 +10,12 @@
 |
 */
 
-
+$hook['post_controller_constructor'] = array(
+	'class'    => 'Updater',
+	'function' => 'check_version',
+	'filename' => 'Updater.php',
+	'filepath' => 'hooks'
+);
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

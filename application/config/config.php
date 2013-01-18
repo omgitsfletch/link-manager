@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= (ENVIRONMENT == 'devel') ? 'http://links.local/' : 'http://tools.ziffen.com/';
+$config['base_url']	= (ENVIRONMENT == 'devel') ? 'http://links.local/' : 'https://tools.ziffen.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -91,7 +91,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 
 /*
