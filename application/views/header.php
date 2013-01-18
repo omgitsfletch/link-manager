@@ -145,7 +145,7 @@
 					<td>
 						<?php echo $sites_dropdown; ?>
 					</td>
-					<td><input type="image" src="/assets/images/shared/top_switch_btn.gif" /></td>
+					<td><input type="image" src="<?php echo image_asset_url('shared/top_switch_btn.gif'); ?>" /></td>
 					</form>
 				</tr>
 				</table>
