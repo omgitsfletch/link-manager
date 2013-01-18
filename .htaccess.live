@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+	# Forbid any requests to the application & system folders.
+    RewriteCond %{REQUEST_URI} ^/tools/(application|system).*$
+    RewriteRule ^(.*)$ - [F,L]
+
+	# Any items in assets folder that are not true files/directories are routed through application.
+	RewriteCond %{REQUEST_URI} ^/tools/(assets)
+	RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d 
+    RewriteRule ^(.*)$ /tools/index.php/$1 [L]
+	
+	# Empty requests (top-level of application) should be routed to the view links page.
+	RewriteCond %{REQUEST_URI} ^/tools/$
+	RewriteRule ^(.*)$ /tools/links/view [R=302,L]
+	
+	# Any remaining items are routed through application also
+	RewriteCond %{REQUEST_URI} !^/tools/(assets|index\.php)
+    RewriteRule ^(.*)$ /tools/index.php/$1 [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    # If we don't have mod_rewrite installed, all 404's can be sent to index.php, and everything works as normal.
+    ErrorDocument 404 /index.php
+</IfModule>

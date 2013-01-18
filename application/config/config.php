@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= (ENVIRONMENT == 'devel') ? 'http://links.local/' : 'https://tools.ziffen.com/';
+$config['base_url']	= (ENVIRONMENT == 'devel') ? 'http://links.local/' : 'https://www.ziffen.com/tools/';
 
 /*
 |--------------------------------------------------------------------------
