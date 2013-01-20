@@ -3,6 +3,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title><?php echo $title; ?></title>
+		<script type="text/javascript">
+			// Set variable for use in JS redirects for dropdowns, etc.
+			var base_url = '<?php echo base_url(); ?>';
+		</script>
 		<?php
 		echo css_asset('screen.css', NULL, array('media' => 'screen', 'title' => 'default')) . "\n";
 		echo css_asset('datePicker.css') . "\n";

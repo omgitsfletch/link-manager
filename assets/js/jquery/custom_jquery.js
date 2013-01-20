@@ -129,26 +129,27 @@ function confirm_multi_delete(item) {
 
 // 8 - CHANGE MASTER LIST CATEGORY ON DROPDOWN CLICK -----------------------------------------------------------------------
 $(document).ready(function () {
+	//Draws base_url variable from top of /application/views/header.php
     $("#select_master_list_category").click(function (e) {
 		selected_category = $('#select_master_list_category').val();
 		current_category = $('#current_master_list_category').text();
 
 		if (selected_category != current_category)
-			window.location.href = '/links/master_list/'+selected_category;//window.location.replace('links/master_list/'+selected_category);
+			window.location.href = base_url+'links/master_list/'+selected_category;//window.location.replace('links/master_list/'+selected_category);
     });
 	
     $("#select_group_switcher").click(function (e) {
 		selected_group = $('#select_group_switcher').val();
 
 		if (selected_group > 0)
-			window.location.href = '/groups/switch_group/'+selected_group;
+			window.location.href = base_url+'groups/switch_group/'+selected_group;
     });
 	
     $("#select_site_switcher").click(function (e) {
 		selected_site = $('#select_site_switcher').val();
 
 		if (selected_site > 0)
-			window.location.href = '/sites/switch_site/'+selected_site;
+			window.location.href = base_url+'sites/switch_site/'+selected_site;
     });
 });
 // END -----------------------------  8
