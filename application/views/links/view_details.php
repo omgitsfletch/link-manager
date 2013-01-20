@@ -1,84 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<?php echo css_asset('screen.css', NULL, array('media' => 'screen', 'title' => 'default')) . "\n"; ?>
 </head>
 <body>
-<div id="content-table-inner">
-<table border="0" cellpadding="0" cellspacing="0"  id="id-form">
-	<tr>
-		<th valign="top">Link Location:</th>
-		<td><?php echo (isset($link->location) ? $link->location : ''); ?></td>
-	</tr>
-	<tr>
-		<th valign="top">Anchor Text:</th>
-		<td><?php echo (isset($link->text) ? $link->text : $this->session->userdata('site_url')); ?></td>
-	</tr>
-	<tr>
-		<th valign="top">URL:</th>
-		<td><?php echo (isset($link->url) ? $link->url : ''); ?></td>
-	</tr>
-	<tr>
-		<th valign="top">Date:</th>
-		<td><?php echo (isset($link->date) ? $link->date : date('Y-m-d')); ?></td>
-	</tr>
-	<tr>
-		<th valign="top">Status:</th>
-		<td>
-<?php
-if (is_array($statuses) && count($statuses) > 0) {
-	foreach ($statuses AS $status) {
-		if ((isset($link->status_id)) && ($link->status_id == $status->status_id))
-			echo $status->status;
-	}
-} else {
-echo '** No statuses found! **';
-}
-?>
-		</td>
-	</tr>
-	<tr>
-		<th valign="top">Type:</th>
-		<td>
-<?php
-if (is_array($types) && count($types) > 0) {
-	foreach ($types AS $type) {
-		if ((isset($link->type_id)) && ($link->type_id == $type->type_id))
-			echo $type->type;
-	}
-} else {
-echo '** No types found! **';
-}
-?>
-		</td>
-	</tr>
-	<tr>
-		<th valign="top">Contact E-mail:</th>
-		<td><?php echo (isset($link->contact_email) ? $link->contact_email : ''); ?></td>
-	</tr>
-	<tr>
-		<th valign="top">Contact Name:</th>
-		<td><?php echo (isset($link->contact_name) ? $link->contact_name : ''); ?></td>
-	</tr>
-	<tr>
-		<th valign="top">Category:</th>
-		<td>
-<?php
-if (is_array($categories) && count($categories) > 0) {
-	foreach ($categories AS $category) {
-		if ((isset($link->category_id)) && ($link->category_id == $category->category_id))
-			echo $category->category;
-	}
-} else {
-echo '** No categories found! **';
-}
-?>
-		</td>
-	</tr>
-	<tr>
-		<th valign="top">Notes:</th>
-		<td><?php echo (isset($link->notes) ? $link->notes : ''); ?></td>
-	</tr>
-</table>
+<div id="content-table-inner" style="padding:0">
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+		<tr>
+			<th class="table-header-repeat line-left minwidth-1"><a href="#">Field</a></th>
+			<th class="table-header-repeat line-left minwidth-1"><a href="#">Data</a></th>
+		</tr>
+	<?php
+		$count = 0;
+		foreach ($link AS $field => $data) {
+			$count++;
+	?>
+		<tr class="<?php echo ($count % 2 == 0) ? 'alternate-row' : ''; ?>">
+			<td><?php echo $field; ?>:</td>
+			<td><?php echo $data; ?></td>
+		</tr>
+	<? } ?>
+	</table>
+	<div style="width: 100%; text-align:right;"><a href="javascript: self.close()" style="color:black;">Close [X]</a>&nbsp;&nbsp;&nbsp;</div>
 </div>
+
 </body>
 </html>

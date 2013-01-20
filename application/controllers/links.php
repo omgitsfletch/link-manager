@@ -31,7 +31,7 @@ class Links extends CI_Controller
 		$data['links'] = $get_links->result();
 
 		$view_details_attribs = array(
-			'width'      => '400',
+			'width'      => '500',
 			'height'     => '600',
 			'scrollbars' => 'no',
 			'status'     => 'no',
@@ -93,38 +93,17 @@ class Links extends CI_Controller
 	{
 		if ($id) {
 			$get_link = $this->db
-				->select('url,text,type_id,status_id,category_id,contact_email,contact_name,date,location,notes')
+				->select("location AS 'Link Location',text AS 'Anchor Text',url AS 'URL',date AS 'Date',status AS 'Status',type AS 'Type',contact_email AS 'Contact E-mail',contact_name AS 'Contact Name',category AS 'Category',notes AS 'Notes'")
 				->from('links')
+				->join('statuses', 'statuses.status_id = links.status_id', 'left outer')
+				->join('types', 'types.type_id = links.type_id', 'left outer')
+				->join('categories', 'categories.category_id = links.category_id', 'left outer')
 				->where('link_id', $id)
 				->get();
 			$data['link'] = $get_link->row();
+			$data['link']->Notes = nl2br($data['link']->Notes);
 
 			if ($get_link->num_rows() == 1) {
-				$get_types = $this->db
-					->select('type_id,type')
-					->from('types')
-					->order_by('type', 'ASC')
-					->get();
-				$types = $get_types->result();
-
-				$get_statuses = $this->db
-					->select('status_id,status')
-					->from('statuses')
-					->order_by('status', 'ASC')
-					->get();
-				$statuses = $get_statuses->result();
-
-				$get_categories = $this->db
-					->select('category_id,category')
-					->from('categories')
-					->order_by('category', 'ASC')
-					->get();
-				$categories = $get_categories->result();
-
-				$data['types'] = $types;
-				$data['statuses'] = $statuses;
-				$data['categories'] = $categories;
-
 				$data['title'] = 'View Details';
 
 				$this->load->view('links/view_details', $data);
