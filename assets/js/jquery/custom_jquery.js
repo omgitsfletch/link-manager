@@ -134,7 +134,21 @@ $(document).ready(function () {
 		current_category = $('#current_master_list_category').text();
 
 		if (selected_category != current_category)
-			window.location.href = selected_category;//window.location.replace('links/master_list/'+selected_category);
+			window.location.href = '/links/master_list/'+selected_category;//window.location.replace('links/master_list/'+selected_category);
+    });
+	
+    $("#select_group_switcher").click(function (e) {
+		selected_group = $('#select_group_switcher').val();
+
+		if (selected_group > 0)
+			window.location.href = '/groups/switch_group/'+selected_group;
+    });
+	
+    $("#select_site_switcher").click(function (e) {
+		selected_site = $('#select_site_switcher').val();
+
+		if (selected_site > 0)
+			window.location.href = '/sites/switch_site/'+selected_site;
     });
 });
 // END -----------------------------  8

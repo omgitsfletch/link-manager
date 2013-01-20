@@ -58,20 +58,20 @@
 <?php endif; ?>
 
 				<!--  start product-table ..................................................................................... -->
-				<form id="mainform" action="<?php echo base_url() . 'categories/delete_multi'; ?>" method="POST">
+				<form id="mainform" action="<?php echo base_url() . 'groups/delete_multi'; ?>" method="POST">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<tr>
 					<th class="table-header-check"><a id="toggle-all" ></a> </th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">Category</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Groups</a></th>
 					<th class="table-header-options-small line-left"><a href="#">Options</a></th>
 				</tr>
-<?php foreach ($categories AS $index => $row): ?>
+<?php foreach ($results AS $index => $row): ?>
 				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
 					<td><input type="checkbox" name="items[<?php echo $row->id; ?>]" /></td>
-					<td><?php echo $row->category; ?></td>
+					<td><?php echo $row->group; ?></td>
 					<td class="options-width-small">
-						<?php echo anchor("categories/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
-						<?php echo anchor("categories/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'category\')')); ?>
+						<?php echo anchor("groups/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
+						<?php echo anchor("groups/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => "return confirm_delete('group')")); ?>
 					</td>
 				</tr>
 <?php endforeach; ?>
@@ -85,8 +85,8 @@
 			<div id="actions-box">
 				<a href="" class="action-slider"></a>
 				<div id="actions-box-slider">
-					<?php echo anchor('categories/add', 'Add', array('class' => 'action-edit')); ?>
-					<?php echo anchor('javascript://', 'Delete', array('class' => 'action-delete', 'onclick' => 'confirm_multi_delete(\'category\')')); ?>
+					<?php echo anchor("groups/add", 'Add', array('class' => 'action-edit')); ?>
+					<?php echo anchor('javascript://', 'Delete', array('class' => 'action-delete', 'onclick' => "confirm_multi_delete('group')")); ?>
 				</div>
 				<div class="clear"></div>
 			</div>

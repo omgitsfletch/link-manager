@@ -140,13 +140,8 @@
 			<div id="top-search">
 				<table border="0" cellpadding="0" cellspacing="0">
 				<tr>
-					<form action="/sites/switch_site" method="POST">
-					<td></td>
-					<td>
-						<?php echo $sites_dropdown; ?>
-					</td>
-					<td><input type="image" src="<?php echo image_asset_url('shared/top_switch_btn.gif'); ?>" /></td>
-					</form>
+					<td><?php echo $groups_dropdown; ?></td>
+					<td><?php echo $sites_dropdown; ?></td>
 				</tr>
 				</table>
 			</div>
@@ -204,11 +199,12 @@
 				<!--  start nav -->
 				<div class="nav">
 				<div class="table">
-				<ul class="<?php echo ($this->uri->segment(1) == 'sites') ? 'current' : 'select'; ?>"><li><?php echo anchor('sites/view', '<b>Dashboard</b>'); ?>
-				<div class="<?php echo ($this->uri->segment(1) == 'sites') ? 'select_sub show' : 'select_sub'; ?>">
+				<ul class="<?php echo ($this->uri->segment(1) == 'sites' || $this->uri->segment(1) == 'groups') ? 'current' : 'select'; ?>"><li><?php echo anchor('sites/view', '<b>Dashboard</b>'); ?>
+				<div class="<?php echo ($this->uri->segment(1) == 'sites' || $this->uri->segment(1) == 'groups') ? 'select_sub show' : 'select_sub'; ?>">
 					<ul class="sub">
-						<li class="<?php echo ($this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('sites/view', 'View Sites'); ?></li>
-						<li class="<?php echo ($this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('sites/add', 'Add Site'); ?></li>
+						<li class="<?php echo ($this->uri->segment(1) == 'sites' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('sites/view', 'View Sites'); ?></li>
+						<li class="<?php echo ($this->uri->segment(1) == 'sites' && $this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('sites/add', 'Add Site'); ?></li>
+						<li class="<?php echo ($this->uri->segment(1) == 'groups' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('groups/view', 'View Groups'); ?></li>
 					</ul>
 				</div>
 				</li>

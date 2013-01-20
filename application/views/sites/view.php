@@ -135,7 +135,8 @@
 			<div id="table-content" style="min-height:150px;"	>
 				<?php echo anchor('categories/view', 'View/Edit Categories'); ?><br/><br/>
 				<?php echo anchor('types/view', 'View/Edit Link Types'); ?><br/><br/>
-				<?php echo anchor('statuses/view', 'View/Edit Statuses'); ?>
+				<?php echo anchor('statuses/view', 'View/Edit Statuses'); ?><br/><br/>
+				<?php echo anchor('groups/view', 'View/Edit Groups'); ?>
 			</div>
 			<!--  end content-table  -->
 			

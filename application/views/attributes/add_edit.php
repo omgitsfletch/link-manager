@@ -40,9 +40,9 @@
 			<form action="<?php echo current_url(); ?>" method="POST">
 			<table border="0" cellpadding="0" cellspacing="0"  id="id-form">
 			<tr>
-				<th valign="top">Category:</th>
-				<td><input name="category" type="text" value="<?php echo set_value('category', (isset($category) ? $category : '')); ?>" class="<?php echo (form_error('category')) ? 'inp-form-error' : 'inp-form'; ?>" /></td>
-				<td><?php echo form_error('category'); ?></td>
+				<th valign="top"><?php echo ucwords($this->singular); ?>:</th>
+				<td><input name="data" type="text" value="<?php echo set_value('data', (isset($data) ? $data : '')); ?>" class="<?php echo (form_error('data')) ? 'inp-form-error' : 'inp-form'; ?>" /></td>
+				<td><?php echo form_error('data'); ?></td>
 			</tr>
 			<tr>
 				<th>&nbsp;</th>

@@ -74,7 +74,7 @@
 <?php foreach ($links AS $index => $row): ?>
 				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
 					<td><input type="checkbox" name="items[<?php echo $row->id; ?>]" /></td>
-					<td><?php echo $row->date; ?></td>
+					<td><?php echo date('m-d-Y', strtotime($row->date)); ?></td>
 					<td><?php echo $row->url; ?></td>
 					<td><?php echo $row->text; ?></td>
 					<td><?php echo $row->location; ?></td>

@@ -17,7 +17,8 @@ class Login extends CI_Controller
 			
 			$login_check = $this->db->query(sprintf("
 				SELECT
-					`id`
+					`id`,
+					`group_id`
 				FROM
 					`users`
 				WHERE
@@ -33,6 +34,7 @@ class Login extends CI_Controller
 				$login_result = $login_check->row();
 				$this->session->set_userdata('logged_in', TRUE);
 				$this->session->set_userdata('user_id', $login_result->id);
+				$this->session->set_userdata('group_id', $login_result->group_id);
 				
 				$get_default_site = $this->db->select('site_id AS id,name,url')
 					->from('sites')

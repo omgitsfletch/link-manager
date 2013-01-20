@@ -41,11 +41,15 @@
 $route['default_controller'] = "main";
 $route['404_override'] = '';
 
-$route['login']		= 'login/auth';
-$route['logout']	= 'login/logout';
+$route['login']						= 'login/auth';
+$route['logout']					= 'login/logout';
 
-//$route['(:any)']	= 'admin/$1';
-
+$route['categories/(:any)/(:any)'] 	= 'attributes/$1/$2/categories';
+$route['categories/(:any)'] 		= 'attributes/$1/categories';
+$route['types/(:any)/(:any)'] 		= 'attributes/$1/$2/types';
+$route['types/(:any)'] 				= 'attributes/$1/types';
+$route['statuses/(:any)/(:any)'] 	= 'attributes/$1/$2/statuses';
+$route['statuses/(:any)'] 			= 'attributes/$1/statuses';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

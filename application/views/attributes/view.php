@@ -58,40 +58,40 @@
 <?php endif; ?>
 
 				<!--  start product-table ..................................................................................... -->
-				<form id="mainform" action="<?php echo base_url() . 'types/delete_multi'; ?>" method="POST">
+				<form id="mainform" action="<?php echo base_url() . "{$this->plural}/delete_multi"; ?>" method="POST">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<tr>
 					<th class="table-header-check"><a id="toggle-all" ></a> </th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">Type</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#"><?php echo ucwords($this->plural); ?></a></th>
 					<th class="table-header-options-small line-left"><a href="#">Options</a></th>
 				</tr>
-<?php foreach ($types AS $index => $row): ?>
+<?php foreach ($results AS $index => $row): ?>
 				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
 					<td><input type="checkbox" name="items[<?php echo $row->id; ?>]" /></td>
-					<td><?php echo $row->type; ?></td>
+					<td><?php echo $row->{$this->singular}; ?></td>
 					<td class="options-width-small">
-						<?php echo anchor("types/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
-						<?php echo anchor("types/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'type\')')); ?>
+						<?php echo anchor("{$this->plural}/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
+						<?php echo anchor("{$this->plural}/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => "return confirm_delete('{$this->singular}')")); ?>
 					</td>
 				</tr>
 <?php endforeach; ?>
 				</table>
 				</form>
-				<!--  end product-table................................... --> 
+				<!--  end product-table................................... -->
 			</div>
 			<!--  end content-table  -->
-			
+
 			<!--  start actions-box ............................................... -->
 			<div id="actions-box">
 				<a href="" class="action-slider"></a>
 				<div id="actions-box-slider">
-					<?php echo anchor('types/add', 'Add', array('class' => 'action-edit')); ?>
-					<?php echo anchor('javascript://', 'Delete', array('class' => 'action-delete', 'onclick' => 'confirm_multi_delete(\'type\')')); ?>
+					<?php echo anchor("{$this->plural}/add", 'Add', array('class' => 'action-edit')); ?>
+					<?php echo anchor('javascript://', 'Delete', array('class' => 'action-delete', 'onclick' => "confirm_multi_delete('{$this->singular}')")); ?>
 				</div>
 				<div class="clear"></div>
 			</div>
 			<!-- end actions-box........... -->
-			
+
 			<!--  start paging..................................................... -->
 			<!--
 			<table border="0" cellpadding="0" cellspacing="0" id="paging-table">
@@ -115,9 +115,9 @@
 			</table>
 			!-->
 			<!--  end paging................ -->
-			
+
 			<div class="clear"></div>
-		 
+
 		</div>
 		<!--  end content-table-inner ............................................END  -->
 		</td>

@@ -99,7 +99,7 @@
 		</tr>
 <?php foreach ($links AS $link): ?>
 		<tr>
-			<td><?php echo $link->url; ?></td>
+			<td><?php echo $link->location; ?></td>
 			<td><?php echo $link->text; ?></td>
 		</tr>
 <?php endforeach; ?>

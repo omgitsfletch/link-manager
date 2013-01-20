@@ -49,12 +49,14 @@ class Reports extends CI_Controller
 			);
 
 			$get_links = $this->db
-				->select('l.link_id AS id,l.url,l.text')
+				->select('l.link_id AS id,l.location,l.text')
 				->from('links l')
 				->join('types t', 't.type_id = l.type_id', 'left outer')
 				->join('statuses s', 's.status_id = l.status_id', 'left outer')
 				->join('categories c', 'c.category_id = l.category_id', 'left outer')
 				->where('l.site_id', $this->session->userdata('site_id'))
+				->where('l.date >=', $this->input->post('start_date'))
+				->where('l.date <=', $this->input->post('end_date'))
 				->order_by('l.date', 'DESC')
 				->get();
 			$data['links'] = $get_links->result();

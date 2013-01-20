@@ -184,9 +184,6 @@ class Sites extends CI_Controller
 	
 	function switch_site($id = NULL)
 	{
-		if ($this->input->post('site_id'))
-			$id = $this->input->post('site_id');
-
 		if ($id ) {
 			$switch_site = $this->db
 				->select('site_id AS id,name,url')

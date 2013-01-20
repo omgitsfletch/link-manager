@@ -38,11 +38,31 @@
 
 			<!-- start id-form -->
 			<form action="<?php echo current_url(); ?>" method="POST">
-			<table border="0" cellpadding="0" cellspacing="0"  id="id-form">
+			<table border="0" cellpadding="0" cellspacing="0" id="id-form">
 			<tr>
-				<th valign="top">Status:</th>
-				<td><input name="status" type="text" value="<?php echo set_value('status', (isset($status) ? $status : '')); ?>" class="<?php echo (form_error('status')) ? 'inp-form-error' : 'inp-form'; ?>" /></td>
-				<td><?php echo form_error('status'); ?></td>
+				<th valign="top">Group:</th>
+				<td><input name="data" type="text" value="<?php echo set_value('data', (isset($data) ? $data : '')); ?>" class="<?php echo (form_error('data')) ? 'inp-form-error' : 'inp-form'; ?>" /></td>
+				<td><?php echo form_error('data'); ?></td>
+			</tr>
+			<tr>
+				<th valign="top">Group Members:</th>
+				<td>
+					<select name="sites[]" multiple>
+<?php
+if (count($sites) > 0) {
+	foreach($sites AS $site) { 
+		$site_name = "{$site->name} ({$site->url})";
+		$selected = isset($site->gs_id) ? 'selected="selected"' : '';
+		echo "\t\t\t\t\t\t<option value=\"{$site->site_id}\" $selected>{$site_name}</option>";
+	}
+} else {
+	echo "\t\t\t\t\t\t<option value=\"0\">Create a site to add members to this group!</option>";
+}
+
+?>
+					</select>
+				</td>
+				<td></td>
 			</tr>
 			<tr>
 				<th>&nbsp;</th>

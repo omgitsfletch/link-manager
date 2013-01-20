@@ -51,26 +51,13 @@ class Links extends CI_Controller
 	function master_list($category_id = NULL)
 	{
 		// Find a category to use if one wasn't passed in the URL
-		if (!$category_id) {
-			$get_default_category = $this->db
-				->select('category_id')
-				->from('categories')
-				->order_by('category_id', 'ASC')
-				->get();
+		if (!$category_id)
+			redirect('links/master_list/all');
 
-			if ($get_default_category->num_rows() > 0) {
-				$get_default_category_result = $get_default_category->row();
-				$category_id = $get_default_category_result->category_id;
-			} else {
-				$category_id = -1;
-			}
-			
-			redirect("links/master_list/{$category_id}");
-		}
 		$data['current_category_id'] = $category_id;
 
 		// Build category dropdown values
-		$data['categories'] = array();
+		$data['categories'] = array('all' => 'All');
 		$get_categories = $this->db
 			->select('category_id,category')
 			->from('categories')
@@ -88,9 +75,12 @@ class Links extends CI_Controller
 			->join('types t', 't.type_id = l.type_id', 'left outer')
 			->join('statuses s', 's.status_id = l.status_id', 'left outer')
 			->join('categories c', 'c.category_id = l.category_id', 'left outer')
-			->where('l.category_id', $category_id)
-			->order_by('l.date', 'DESC')
-			->get();
+			->order_by('l.date', 'DESC');
+		if (is_numeric($category_id))
+			$get_links = $this->db->where('l.category_id', $category_id)->get();
+		else
+			$get_links = $this->db->get();
+
 		$data['links'] = $get_links->result();
 
 		$data['page'] = 'links/master_list';
