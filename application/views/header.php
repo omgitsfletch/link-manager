@@ -12,6 +12,7 @@
 	echo css_asset('datePicker.css') . "\n";
 
 	echo js_asset('jquery/jquery-1.4.1.min.js') . "\n";
+	echo js_asset('jquery/jquery.base64.min.js') . "\n";
 	echo js_asset('jquery/ui.core.js') . "\n";
 	echo js_asset('jquery/ui.checkbox.js') . "\n";
 	echo js_asset('jquery/jquery.bind.js') . "\n";
@@ -22,6 +23,7 @@
 	echo js_asset('jquery/jquery.selectbox-0.5_style_2.js') . "\n";
 	echo js_asset('jquery/date.js') . "\n";
 	echo js_asset('jquery/jquery.datePicker.js') . "\n";
+	echo js_asset('jquery/tquery.js') . "\n";
 	?>
 	<script type="text/javascript">
 	$(function(){
@@ -221,6 +223,7 @@
 					<li class="<?php echo ($this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('links/view', 'View Links'); ?></li>
 					<li class="<?php echo ($this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('links/add', 'Add Link'); ?></li>
 					<li class="<?php echo ($this->uri->segment(2) == 'master_list') ? 'sub_show' : ''; ?>"><?php echo anchor('links/master_list', 'Master List'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'monitor') ? 'sub_show' : ''; ?>"><?php echo anchor('links/monitor', 'Link Monitoring'); ?></li>
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -244,18 +247,6 @@
 			<ul class="<?php echo ($this->uri->segment(1) == 'reports') ? 'current' : 'select'; ?>"><li><?php echo anchor('reports/generate', '<b>Reports</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'reports') ? 'select_sub show' : 'select_sub'; ?>">
-				<ul class="sub">
-				</ul>
-			</div>
-			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			</li>
-			</ul>
-			
-			<div class="nav-divider">&nbsp;</div>
-			
-			<ul class="<?php echo ($this->uri->segment(1) == 'link_monitor') ? 'current' : 'select'; ?>"><li><?php echo anchor(current_url(), '<b>Link Monitoring</b>'); ?>
-			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="<?php echo ($this->uri->segment(1) == 'link_monitor') ? 'select_sub show' : 'select_sub'; ?>">
 				<ul class="sub">
 				</ul>
 			</div>

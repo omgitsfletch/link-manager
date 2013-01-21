@@ -58,19 +58,38 @@
 <?php endif; ?>
 
 				<!--  start product-table ..................................................................................... -->
+				<script type="text/javascript">
+				$(document).ready(function() {
+					var sorter = new ttable('product-table'); 
+					sorter.search.enabled = true;
+					sorter.search.inputID = 'searchinput';
+					sorter.search.casesensitive = false;
+					sorter.style.num = false;
+					sorter.sorting.sortascstyle = 'column-active-up';
+					sorter.sorting.sortdescstyle = 'column-active-down';
+					sorter.rendertable();
+				});
+				</script>
+				
+				<div style="float:right;">
+					<b>Filter:</b>&nbsp;&nbsp;&nbsp;<input id="searchinput" class="inp-form"/>
+				</div>
+				
+				<br/><br/><br/>
+
 				<form id="mainform" action="<?php echo base_url() . 'links/delete_multi'; ?>" method="POST">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
-				<tr>
+				<thead>
 					<th class="table-header-check"><a id="toggle-all" ></a> </th>
-					<th class="table-header-sort line-left minwidth-1 <?php echo (($sort == 'date') ? (($dir == 1) ? 'column-active-down' : 'column-active-up') : ''); ?>" style="width:85px;"><?php echo anchor((($sort == 'date' && $dir == 1) ? '/links/view/date/2' : '/links/view/date/1'), 'Date'); ?></th>
-					<th class="table-header-sort line-left minwidth-1 <?php echo (($sort == 'url') ? (($dir == 1) ? 'column-active-down' : 'column-active-up') : ''); ?>"><?php echo anchor((($sort == 'url' && $dir == 1) ? '/links/view/url/2' : '/links/view/url/1'), 'URL'); ?></th>
-					<th class="table-header-sort line-left minwidth-1 <?php echo (($sort == 'text') ? (($dir == 1) ? 'column-active-down' : 'column-active-up') : ''); ?>"><?php echo anchor((($sort == 'text' && $dir == 1) ? '/links/view/text/2' : '/links/view/text/1'), 'Text'); ?></th>
-					<th class="table-header-sort line-left minwidth-1 <?php echo (($sort == 'location') ? (($dir == 1) ? 'column-active-down' : 'column-active-up') : ''); ?>"><?php echo anchor((($sort == 'location' && $dir == 1) ? '/links/view/location/2' : '/links/view/location/1'), 'Location'); ?></th>
-					<th class="table-header-sort line-left minwidth-1 <?php echo (($sort == 'type') ? (($dir == 1) ? 'column-active-down' : 'column-active-up') : ''); ?>"><?php echo anchor((($sort == 'type' && $dir == 1) ? '/links/view/type/2' : '/links/view/type/1'), 'Type'); ?></th>
-					<th class="table-header-sort line-left minwidth-1 <?php echo (($sort == 'status') ? (($dir == 1) ? 'column-active-down' : 'column-active-up') : ''); ?>"><?php echo anchor((($sort == 'status' && $dir == 1) ? '/links/view/status/2' : '/links/view/status/1'), 'Status'); ?></th>
-					<th class="table-header-sort line-left minwidth-1 <?php echo (($sort == 'category') ? (($dir == 1) ? 'column-active-down' : 'column-active-up') : ''); ?>"><?php echo anchor((($sort == 'category' && $dir == 1) ? '/links/view/category/2' : '/links/view/category/1'), 'Category'); ?></th>
+					<th class="table-header-repeat line-left minwidth-1" style="width:85px;"><a href="#">Date</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">URL</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Text</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Location</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Type</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Status</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Category</a></th>
 					<th class="table-header-options line-left"><a href="#">Options</a></th>
-				</tr>
+				</thead>
 <?php foreach ($links AS $index => $row): ?>
 				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
 					<td><input type="checkbox" name="items[<?php echo $row->id; ?>]" /></td>
@@ -83,7 +102,7 @@
 					<td><?php echo $row->category; ?></td>
 					<td class="options-width">
 						<?php echo anchor("links/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
-						<?php echo anchor("links/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip')); ?>
+						<?php echo anchor("links/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'link\')')); ?>
 						<?php echo anchor_popup("links/view_details/{$row->id}", ' ', array_merge($view_details_attribs, array('title' => 'View Details', 'class' => 'icon-3 info-tooltip'))); ?>
 						<?php echo anchor("links/add/{$row->id}", ' ', array('title' => 'Copy', 'class' => 'icon-5 info-tooltip')); ?>
 

@@ -59,7 +59,7 @@
 
 				<!--  start product-table ..................................................................................... -->
 
-				<div style="float:right;">
+				<div style="float:left;">
 					<span style="float:left; padding-right: 20px; line-height:30px; font-weight: bold;">Category:</span>
 					<div style="float:right;">
 					<span id="current_master_list_category" style="display:none"><?php echo $current_category_id; ?></span>
@@ -71,18 +71,41 @@
 					</div>
 				</div>
 				
+
+				
+				<script type="text/javascript">
+				$(document).ready(function() {
+					var sorter = new ttable('product-table'); 
+					sorter.search.enabled = true;
+					sorter.search.inputID = 'searchinput';
+					sorter.search.casesensitive = false;
+					sorter.style.num = false;
+					sorter.sorting.sortascstyle = 'column-active-up';
+					sorter.sorting.sortdescstyle = 'column-active-down';
+					sorter.rendertable();
+					
+					$('#export_data').click(function() {
+						window.open('/links/download_to_file/master_list.csv/'+$.base64.encode(encodeURI($('#product-table').tocsv(','))), '', '');
+					});
+				});
+				</script>
+				
+				<div style="float:right;">
+					<b>Filter:</b>&nbsp;&nbsp;&nbsp;<input id="searchinput" class="inp-form"/>
+				</div>
+				
 				<br/><br/><br/>
 
 				<form id="mainform" action="<?php echo base_url() . 'links/delete_multi'; ?>" method="POST">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
-				<tr>
+				<thead>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Domain</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Name</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Email</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Category</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Type</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Price</a></th>
-				</tr>
+				</thead>
 <?php foreach ($links AS $index => $row): ?>
 				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
 					<td><?php echo $row->location; ?></td>
@@ -95,6 +118,10 @@
 <?php endforeach; ?>
 				</table>
 				</form>
+				
+				<div style="float:right;">
+					<a href="#" id="export_data" style="color:black;">[Export Data]</a>
+				</div>
 				<!--  end product-table................................... --> 
 			</div>
 			<!--  end content-table  -->

@@ -369,4 +369,14 @@ class Links extends CI_Controller
 		redirect('links/view');
 	}
 
+	function download_to_file($filename = NULL, $data = NULL)
+	{
+		if ($filename && $data) {
+			$this->load->helper('download');
+
+			$data = urldecode(base64_decode($data));
+	
+			force_download($filename, $data);
+		}
+	}
 }
