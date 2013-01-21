@@ -141,12 +141,10 @@
 		<!-- end logo -->
 
 		<!--  start top-search -->
-		<div id="top-search">
+		<div id="top-search" style="font-size:12px; font-weight:bold;">
 			<table border="0" cellpadding="0" cellspacing="0">
-			<tr>
-				<td><?php echo $groups_dropdown; ?></td>
-				<td><?php echo $sites_dropdown; ?></td>
-			</tr>
+				<tr><td>Group:</td><td><?php echo $groups_dropdown; ?></td></tr>
+				<tr><td>Website:&nbsp;&nbsp;&nbsp;</td><td><?php echo $sites_dropdown; ?></td></tr>
 			</table>
 		</div>
 		<!--  end top-search -->

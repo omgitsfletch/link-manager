@@ -20,17 +20,26 @@
   * @return		array    List of sites in array($site_id => $site_name) structure
   */
 
-function generate_sites_dropdown($select_attribs = array('class' => 'styledselect', 'id' => 'select_site_switcher'))
+function generate_sites_dropdown($select_attribs = array('class' => 'styledselect_form_1', 'id' => 'select_site_switcher'))
 {
 	$CI =& get_instance();
 
 	$get_sites = $CI->db
 		->select('s.site_id AS id,s.name,s.url')
 		->from('sites s')
-		->join('groups_sites gs', 'gs.site_id = s.site_id')
-		->where('gs.group_id', $CI->session->userdata('group_id'))
-		->order_by('name','ASC')
-		->get();
+		
+		->order_by('name','ASC');
+		
+	if (is_numeric($CI->session->userdata('group_id'))) {
+		$get_sites = $CI->db
+			->join('groups_sites gs', 'gs.site_id = s.site_id')
+			->where('gs.group_id', $CI->session->userdata('group_id'))
+			->get();
+	} else {
+		$get_sites = $CI->db
+			->get();
+	}
+
 	$sites = $get_sites->result();
 
 	$attribs = array();
@@ -48,14 +57,14 @@ function generate_sites_dropdown($select_attribs = array('class' => 'styledselec
 			$dropdown .= "\t<option value=\"{$site->id}\" {$selected}>{$site->name} ({$site_url})</option>\n";
 		}
 	} else {
-		$dropdown .= "\t<option value=\"0\">Create a site to use this switcher!</option>\n";
+		$dropdown .= "\t<option value=\"0\">Create a site!</option>\n";
 	}
 	$dropdown .= "</select>\n";
 
 	return $dropdown;
 }
 
-function generate_groups_dropdown($select_attribs = array('class' => 'styledselect', 'id' => 'select_group_switcher'))
+function generate_groups_dropdown($select_attribs = array('class' => 'styledselect_form_1', 'id' => 'select_group_switcher'))
 {
 	$CI =& get_instance();
 
@@ -77,16 +86,14 @@ function generate_groups_dropdown($select_attribs = array('class' => 'styledsele
 
 	$dropdown = "<select name=\"group_id\" {$attribs_str}>\n";
 	if (count($groups) > 0) {
-		if (!is_numeric($CI->session->userdata('group_id'))) {
-			$dropdown .= "\t<option value=\"0\">Select a group!</option>\n";
-		}
+			$dropdown .= "\t<option value=\"0\">All</option>\n";
 
 		foreach ($groups AS $group) {
 			$selected = ($CI->session->userdata('group_id') == $group->group_id) ? 'selected="selected"' : '';
 			$dropdown .= "\t<option value=\"{$group->group_id}\" {$selected}>{$group->group} ({$group->cnt})</option>\n";
 		}
 	} else {
-		$dropdown .= "\t<option value=\"0\">Create a group to use this switcher!</option>\n";
+		$dropdown .= "\t<option value=\"0\">Create a group!</option>\n";
 	}
 	$dropdown .= "</select>\n";
 

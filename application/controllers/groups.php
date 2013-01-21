@@ -203,29 +203,44 @@ class Groups extends CI_Controller
 	function switch_group($id = NULL)
 	{
 		if ($id ) {
-			// Don't switch to group if no sites exist under it
-			$get_site_count = $this->db
-				->select('site_id')
-				->from('groups_sites')
-				->where('group_id', $id)
-				->get();
-			if ($get_site_count->num_rows() > 0) {		
-				$data = array('group_id' => $id);
+			// Switching to default everything group, set group ID as NULL
+			if ($id == 'all') {
+				$this->session->set_userdata('group_id', NULL);
+
+				$data = array('group_id' => NULL);
 				$switch_group = $this->db
 					->where('id', $this->session->userdata('user_id'))
 					->update('users', $data);
 
-				if ($switch_group) {
-					$this->session->set_userdata('group_id', $id);
+				$this->session->set_flashdata('message_success', 'Current group successfully changed.');
 
-					$this->session->set_flashdata('message_success', 'Current group successfully changed.');
-				} else
-					$this->session->set_flashdata('message_failure', 'Invalid group id. Please try again.');
-					
 				redirect('links/view');
 			} else {
-				$this->session->set_flashdata('message_failure', 'No sites in group. Add sites to group to switch to that group.');
-				redirect('sites/view');
+				// Don't switch to group if no sites exist under it
+				$get_site_count = $this->db
+					->select('site_id')
+					->from('groups_sites')
+					->where('group_id', $id)
+					->get();
+
+				if ($get_site_count->num_rows() > 0) {		
+					$data = array('group_id' => $id);
+					$switch_group = $this->db
+						->where('id', $this->session->userdata('user_id'))
+						->update('users', $data);
+
+					if ($switch_group) {
+						$this->session->set_userdata('group_id', $id);
+
+						$this->session->set_flashdata('message_success', 'Current group successfully changed.');
+					} else
+						$this->session->set_flashdata('message_failure', 'Invalid group id. Please try again.');
+						
+					redirect('links/view');
+				} else {
+					$this->session->set_flashdata('message_failure', 'No sites in group. Add sites to group to switch to that group.');
+					redirect('sites/view');
+				}
 			}
 		} else {
 			$this->session->set_flashdata('message_notification', 'No group ID in URL. Please try again.');

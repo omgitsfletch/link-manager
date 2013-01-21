@@ -34,7 +34,7 @@ body	{
 	display: inline;
 	float: right;
 	position: relative;
-	margin: 46px 20px 0 0;
+	margin: 10px 20px 0 0;
 	z-index: 20;
 }
 	
@@ -1298,7 +1298,7 @@ div.selectbox-wrapper2 ul li	{
 	font-family: Arial;
 	font-size: 12px;
 	height: 24px;
-	margin: 0px 0px 0px 0px;
+	margin: 5px 0px 0px 0px;
 	padding: 7px 0 0 6px;
 	text-align: left;
 	width: 192px;

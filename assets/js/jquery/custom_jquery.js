@@ -143,6 +143,8 @@ $(document).ready(function () {
 
 		if (selected_group > 0)
 			window.location.href = base_url+'groups/switch_group/'+selected_group;
+		else
+			window.location.href = base_url+'groups/switch_group/all';
     });
 	
     $("#select_site_switcher").click(function (e) {
