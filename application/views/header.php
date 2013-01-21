@@ -256,7 +256,7 @@
 			
 			<div class="nav-divider">&nbsp;</div>
 			
-			<ul class="<?php echo ($this->uri->segment(1) == 'content') ? 'current' : 'select'; ?>"><li><?php echo anchor(current_url(), '<b>Content</b>'); ?>
+			<ul class="<?php echo ($this->uri->segment(1) == 'content') ? 'current' : 'select'; ?>"><li><?php echo anchor('../content/admin/articles', '<b>Content</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'content') ? 'select_sub show' : 'select_sub'; ?>">
 				<ul class="sub">
