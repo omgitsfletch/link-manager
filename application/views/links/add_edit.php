@@ -94,6 +94,9 @@
 					</script>
 				</td>
 				<td><?php echo form_error('date'); ?></td>
+				<th valign="top">Contact By:</th>
+				<td><input name="contact_by" type="text" value="<?php echo set_value('contact_by', (isset($link->contact_by) ? $link->contact_by : '')); ?>" class="<?php echo (form_error('contact_by')) ? 'inp-form-error' : 'inp-form'; ?>" /></td>
+				<td><?php echo form_error('contact_by'); ?></td>
 			</tr>
 			<tr>
 				<th valign="top">Status:</th>
@@ -113,6 +116,9 @@
 					</select>
 				</td>
 				<td><?php echo form_error('status_id'); ?></td>
+				<th valign="top">Price:</th>
+				<td><input name="price" type="text" value="<?php echo set_value('price', (isset($link->price) ? $link->price : '')); ?>" class="<?php echo (form_error('price')) ? 'inp-form-error' : 'inp-form'; ?>" /></td>
+				<td><?php echo form_error('price'); ?></td>
 			</tr>
 			<tr>
 				<th valign="top">Type:</th>
@@ -132,6 +138,23 @@
 					</select>
 				</td>
 				<td><?php echo form_error('type_id'); ?></td>
+				<th valign="top">Pricing Period:</th>
+				<td>	
+					<select name="price_period" class="styledselect_form_1">
+<?php
+	if (is_array($periods) && count($periods) > 0) {
+		echo "<option value=\"\">** Select a price period! **</option>";
+		foreach ($periods AS $period) {
+			$selected = ( (isset($link->price_period)) && ($link->price_period == $period->period_id) ) ? 'selected="selected"' : '';
+			echo "<option value=\"{$period->period_id}\" {$selected}>{$period->period}</option>";
+		}
+	} else {
+		echo '<option value="">** No pricing periods found! **</option>';
+	}
+?>
+					</select>
+				</td>
+				<td><?php echo form_error('price_period'); ?></td>
 			</tr>
 			<tr>
 				<th valign="top">Notes:</th>

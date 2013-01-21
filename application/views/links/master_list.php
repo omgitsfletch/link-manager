@@ -81,6 +81,7 @@
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Email</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Category</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Type</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="">Price</a></th>
 				</tr>
 <?php foreach ($links AS $index => $row): ?>
 				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
@@ -89,6 +90,7 @@
 					<td><?php echo $row->contact_email; ?></td>
 					<td><?php echo $row->category; ?></td>
 					<td><?php echo $row->type; ?></td>
+					<td><?php echo ($row->price) ? "\${$row->price} ({$row->period})" : ''; ?></td>
 				</tr>
 <?php endforeach; ?>
 				</table>

@@ -70,11 +70,12 @@ class Links extends CI_Controller
 		}
 
 		$get_links = $this->db
-			->select('l.link_id AS id,l.location,l.contact_name,l.contact_email,c.category,t.type')
+			->select('l.link_id AS id,l.location,l.contact_name,l.contact_email,c.category,t.type,l.price,p.period')
 			->from('links l')
 			->join('types t', 't.type_id = l.type_id', 'left outer')
 			->join('statuses s', 's.status_id = l.status_id', 'left outer')
 			->join('categories c', 'c.category_id = l.category_id', 'left outer')
+			->join('price_periods p', 'p.period_id = l.price_period', 'left outer')
 			->order_by('l.date', 'DESC');
 		if (is_numeric($category_id))
 			$get_links = $this->db->where('l.category_id', $category_id)->get();
@@ -121,16 +122,21 @@ class Links extends CI_Controller
 	{
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('url', 'URL', 'required|max_length[100]');
-		$this->form_validation->set_rules('text', 'Text', 'required|max_length[100]');
-		$this->form_validation->set_rules('contact_email', 'Contact E-mail', 'required|max_length[100]');
-		$this->form_validation->set_rules('contact_name', 'Contact Name', 'required|max_length[100]');
-		$this->form_validation->set_rules('date', 'Date', 'required|callback_valid_date');
 		$this->form_validation->set_rules('location', 'Location', 'required|max_length[100]');
-		$this->form_validation->set_rules('type_id', 'Type', 'required|is_natural_no_zero');
+		$this->form_validation->set_rules('text', 'Text', 'required|max_length[100]');
+		$this->form_validation->set_rules('url', 'URL', 'required|max_length[100]');
+		$this->form_validation->set_rules('date', 'Date', 'required|callback_valid_date');
 		$this->form_validation->set_rules('status_id', 'Status', 'required|is_natural_no_zero');
-		$this->form_validation->set_rules('category_id', 'Category', 'required|is_natural_no_zero');
+		$this->form_validation->set_rules('type_id', 'Type', 'required|is_natural_no_zero');
 		$this->form_validation->set_rules('notes', 'Notes', 'max_length[255]');
+
+		$this->form_validation->set_rules('contact_email', 'Contact E-mail', 'valid_email|max_length[100]');
+		$this->form_validation->set_rules('contact_name', 'Contact Name', 'max_length[100]');
+		$this->form_validation->set_rules('category_id', 'Category', '');
+		$this->form_validation->set_rules('contact_by', 'Contact By', 'valid_email|max_length[100]');
+		$this->form_validation->set_rules('price', 'Price', 'is_natural|less_than[10000]');
+		$this->form_validation->set_rules('price_period', 'Pricing Period', '');
+
 		$this->form_validation->set_error_delimiters('<div class="error-left"></div><div class="error-inner">','</div>');
 
 		// If ID filled, copy was hit, pre-fill everything but Anchor Text
@@ -164,10 +170,18 @@ class Links extends CI_Controller
 				->order_by('category', 'ASC')
 				->get();
 			$categories = $get_categories->result();
+			
+			$get_periods = $this->db
+				->select('period_id,period')
+				->from('price_periods')
+				->order_by('period_id', 'ASC')
+				->get();
+			$periods = $get_periods->result();
 
 			$data['types'] = $types;
 			$data['statuses'] = $statuses;
 			$data['categories'] = $categories;
+			$data['periods'] = $periods;
 
 			$data['page'] = 'links/add_edit';
 			$data['title'] = 'Add Link';
@@ -175,16 +189,19 @@ class Links extends CI_Controller
 			$this->load->view('shell', $data);
 		} else {
 			$data = array(
-				'url' => $this->input->post('url'),
+				'location' => $this->input->post('location'),
 				'text' => $this->input->post('text'),
+				'url' => $this->input->post('url'),
+				'date' => $this->input->post('date'),
+				'status_id' => $this->input->post('status_id'),
+				'type_id' => $this->input->post('type_id'),
+				'notes' => $this->input->post('notes'),
 				'contact_email' => $this->input->post('contact_email'),
 				'contact_name' => $this->input->post('contact_name'),
-				'date' => $this->input->post('date'),
-				'location' => $this->input->post('location'),
-				'type_id' => $this->input->post('type_id'),
-				'status_id' => $this->input->post('status_id'),
-				'category_id' => $this->input->post('category_id'),
-				'notes' => $this->input->post('notes'),
+				'category_id' => ($this->input->post('category_id')) ? $this->input->post('category_id') : NULL,
+				'contact_by' => $this->input->post('contact_by'),
+				'price' => $this->input->post('price'),
+				'price_period' => ($this->input->post('price_period')) ? $this->input->post('price_period') : NULL,
 				'site_id' => $this->session->userdata('site_id')
 			);
 			$insert_link = $this->db->insert('links', $data);
@@ -202,21 +219,26 @@ class Links extends CI_Controller
 	{
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('url', 'URL', 'required|max_length[100]');
-		$this->form_validation->set_rules('text', 'Text', 'required|max_length[100]');
-		$this->form_validation->set_rules('contact_email', 'Contact E-mail', 'required|max_length[100]');
-		$this->form_validation->set_rules('contact_name', 'Contact Name', 'required|max_length[100]');
-		$this->form_validation->set_rules('date', 'Date', 'required|callback_valid_date');
 		$this->form_validation->set_rules('location', 'Location', 'required|max_length[100]');
-		$this->form_validation->set_rules('type_id', 'Type', 'required|is_natural_no_zero');
+		$this->form_validation->set_rules('text', 'Text', 'required|max_length[100]');
+		$this->form_validation->set_rules('url', 'URL', 'required|max_length[100]');
+		$this->form_validation->set_rules('date', 'Date', 'required|callback_valid_date');
 		$this->form_validation->set_rules('status_id', 'Status', 'required|is_natural_no_zero');
-		$this->form_validation->set_rules('category_id', 'Category', 'required|is_natural_no_zero');
+		$this->form_validation->set_rules('type_id', 'Type', 'required|is_natural_no_zero');
 		$this->form_validation->set_rules('notes', 'Notes', 'max_length[255]');
+
+		$this->form_validation->set_rules('contact_email', 'Contact E-mail', 'valid_email|max_length[100]');
+		$this->form_validation->set_rules('contact_name', 'Contact Name', 'max_length[100]');
+		$this->form_validation->set_rules('category_id', 'Category', '');
+		$this->form_validation->set_rules('contact_by', 'Contact By', 'valid_email|max_length[100]');
+		$this->form_validation->set_rules('price', 'Price', 'is_natural|less_than[10000]');
+		$this->form_validation->set_rules('price_period', 'Pricing Period', '');
+
 		$this->form_validation->set_error_delimiters('<div class="error-left"></div><div class="error-inner">','</div>');
 
 		if ($id) {
 			$get_link = $this->db
-				->select('url,text,type_id,status_id,category_id,contact_email,contact_name,date,location,notes')
+				->select('url,text,type_id,status_id,category_id,contact_by,contact_email,contact_name,price,price_period,date,location,notes')
 				->from('links')
 				->where('link_id', $id)
 				->get();
@@ -244,10 +266,18 @@ class Links extends CI_Controller
 						->order_by('category', 'ASC')
 						->get();
 					$categories = $get_categories->result();
+					
+					$get_periods = $this->db
+						->select('period_id,period')
+						->from('price_periods')
+						->order_by('period_id', 'ASC')
+						->get();
+					$periods = $get_periods->result();
 
 					$data['types'] = $types;
 					$data['statuses'] = $statuses;
 					$data['categories'] = $categories;
+					$data['periods'] = $periods;
 
 					$data['page'] = 'links/add_edit';
 					$data['title'] = 'Edit Link';
@@ -255,16 +285,19 @@ class Links extends CI_Controller
 					$this->load->view('shell', $data);
 				} else {
 					$data = array(
-						'url' => $this->input->post('url'),
+						'location' => $this->input->post('location'),
 						'text' => $this->input->post('text'),
-						'type_id' => $this->input->post('type_id'),
+						'url' => $this->input->post('url'),
+						'date' => $this->input->post('date'),
 						'status_id' => $this->input->post('status_id'),
-						'category_id' => $this->input->post('category_id'),
+						'type_id' => $this->input->post('type_id'),
+						'notes' => $this->input->post('notes'),
 						'contact_email' => $this->input->post('contact_email'),
 						'contact_name' => $this->input->post('contact_name'),
-						'date' => $this->input->post('date'),
-						'location' => $this->input->post('location'),
-						'notes' => $this->input->post('notes')
+						'category_id' => ($this->input->post('category_id')) ? $this->input->post('category_id') : NULL,
+						'contact_by' => $this->input->post('contact_by'),
+						'price' => $this->input->post('price'),
+						'price_period' => ($this->input->post('price_period')) ? $this->input->post('price_period') : NULL,
 					);
 					$edit_link = $this->db
 						->where('link_id', $id)

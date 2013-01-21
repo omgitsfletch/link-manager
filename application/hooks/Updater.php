@@ -7,7 +7,7 @@ class Updater
 	{
 		$CI = &get_instance();
 
-		if (!$CI->migration->latest())
+		if (!$CI->migration->current())
 			show_error($CI->migration->error_string());
 	}
 
