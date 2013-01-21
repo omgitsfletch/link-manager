@@ -85,7 +85,7 @@
 					sorter.rendertable();
 					
 					$('#export_data').click(function() {
-						window.open('/links/download_to_file/master_list.csv/'+$.base64.encode(encodeURI($('#product-table').tocsv(','))), '', '');
+						window.open('<?php echo base_url() . '/links/download_to_file/master_list.csv/'; ?>'+$.base64.encode(encodeURI($('#product-table').tocsv(','))), '', '');
 					});
 				});
 				</script>
