@@ -200,7 +200,7 @@ class Links extends CI_Controller
 				'contact_name' => $this->input->post('contact_name'),
 				'category_id' => ($this->input->post('category_id')) ? $this->input->post('category_id') : NULL,
 				'contact_by' => $this->input->post('contact_by'),
-				'price' => $this->input->post('price'),
+				'price' => ($this->input->post('price')) ? $this->input->post('price') : NULL,
 				'price_period' => ($this->input->post('price_period')) ? $this->input->post('price_period') : NULL,
 				'site_id' => $this->session->userdata('site_id')
 			);
@@ -296,7 +296,7 @@ class Links extends CI_Controller
 						'contact_name' => $this->input->post('contact_name'),
 						'category_id' => ($this->input->post('category_id')) ? $this->input->post('category_id') : NULL,
 						'contact_by' => $this->input->post('contact_by'),
-						'price' => $this->input->post('price'),
+						'price' => ($this->input->post('price')) ? $this->input->post('price') : NULL,
 						'price_period' => ($this->input->post('price_period')) ? $this->input->post('price_period') : NULL,
 					);
 					$edit_link = $this->db
