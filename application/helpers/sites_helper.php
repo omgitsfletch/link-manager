@@ -54,7 +54,7 @@ function generate_sites_dropdown($select_attribs = array('class' => 'styledselec
 		foreach ($sites AS $site) {
 			$site_url = preg_replace('#(https://|http://)(.*)#', '$2', $site->url);
 			$selected = ($CI->session->userdata('site_id') == $site->id) ? 'selected="selected"' : '';
-			$dropdown .= "\t<option value=\"{$site->id}\" {$selected}>{$site->name} ({$site_url})</option>\n";
+			$dropdown .= "\t<option value=\"{$site->id}\" {$selected}>{$site_url}</option>\n";
 		}
 	} else {
 		$dropdown .= "\t<option value=\"0\">Create a site!</option>\n";

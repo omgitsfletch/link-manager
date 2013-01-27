@@ -248,6 +248,7 @@
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'reports') ? 'select_sub show' : 'select_sub'; ?>">
 				<ul class="sub">
+					<li class="<?php echo ($this->uri->segment(2) == 'contents') ? 'sub_show' : ''; ?>"><?php echo anchor('../content/admin/reports', 'Reports'); ?></li>
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -260,6 +261,19 @@
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'content') ? 'select_sub show' : 'select_sub'; ?>">
 				<ul class="sub">
+				</ul>
+			</div>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+			</ul>
+            
+			<div class="nav-divider">&nbsp;</div>
+			
+			<ul class="<?php echo ($this->uri->segment(1) == 'writers') ? 'current' : 'select'; ?>"><li><?php echo anchor('../content/admin/writers', '<b>Writers</b>'); ?>
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<div class="<?php echo ($this->uri->segment(1) == 'writers') ? 'select_sub show' : 'select_sub'; ?>">
+				<ul class="sub">
+					<li class="<?php echo ($this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('../content/admin/addWriter', 'Add Writer'); ?></li>
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
