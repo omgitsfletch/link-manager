@@ -82,35 +82,27 @@
 				
 				<br/><br/><br/>
 
-				<form id="mainform" action="<?php echo base_url() . 'links/delete_multi'; ?>" method="POST">
+				<form id="mainform" action="<?php echo base_url() . 'profiles/delete_multi'; ?>" method="POST">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<thead>
 					<th class="table-header-check"><a id="toggle-all" ></a> </th>
-					<th class="table-header-repeat line-left minwidth-1" style="width:85px;"><a href="#">Date</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">URL</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">Text</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">Location</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">Type</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">Status</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="#">Category</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Name</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Address</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Phone</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">URL(s)</a></th>
 					<th class="table-header-options line-left"><a href="#">Options</a></th>
 				</thead>
-<?php foreach ($links AS $index => $row): ?>
+<?php foreach ($profiles AS $index => $row): ?>
 				<tr>
 					<td><input type="checkbox" name="items[<?php echo $row->id; ?>]" /></td>
-					<td><?php echo anchor_popup("links/view_details/{$row->id}", date('m-d-Y', strtotime($row->date)), $view_details_attribs); ?></td>
-					<td><?php echo $row->url; ?></td>
-					<td><?php echo $row->text; ?></td>
-					<td><?php echo $row->location; ?></td>
-					<td><?php echo $row->type; ?></td>
-					<td><?php echo $row->status; ?></td>
-					<td><?php echo $row->category; ?></td>
+					<td><?php echo $row->name; ?></td>
+					<td><?php echo $row->address; ?></td>
+					<td><?php echo $row->phone; ?></td>
+					<td><?php echo nl2br($row->urls); ?></td>
 					<td class="options-width">
-						<?php echo anchor("links/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
-						<?php echo anchor("links/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'link\')')); ?>
-						<?php echo anchor_popup("links/view_details/{$row->id}", ' ', array_merge($view_details_attribs, array('title' => 'View Details', 'class' => 'icon-3 info-tooltip'))); ?>
-						<?php echo anchor("links/add/{$row->id}", ' ', array('title' => 'Copy', 'class' => 'icon-5 info-tooltip')); ?>
-
+						<?php echo anchor("profiles/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
+						<?php echo anchor("profiles/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'profile\')')); ?>
+						<?php echo anchor("profiles/view_notes/{$row->id}", ' ', array('title' => 'View Notes', 'class' => 'icon-3 info-tooltip')); ?>
 					</td>
 				</tr>
 <?php endforeach; ?>
@@ -124,7 +116,7 @@
 			<div id="actions-box">
 				<a href="" class="action-slider"></a>
 				<div id="actions-box-slider">
-					<?php echo anchor('links/add', 'Add', array('class' => 'action-edit')); ?>
+					<?php echo anchor('profiles/add', 'Add', array('class' => 'action-edit')); ?>
 					<?php echo anchor('javascript://', 'Delete', array('class' => 'action-delete', 'onclick' => '$(\'#mainform\').submit();')); ?>
 				</div>
 				<div class="clear"></div>

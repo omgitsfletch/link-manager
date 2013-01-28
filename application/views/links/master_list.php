@@ -76,14 +76,20 @@
 				<script type="text/javascript">
 				$(document).ready(function() {
 					var sorter = new ttable('product-table'); 
+
 					sorter.search.enabled = true;
 					sorter.search.inputID = 'searchinput';
 					sorter.search.casesensitive = false;
+
 					sorter.style.num = false;
+					sorter.style.stripped = true;
+					sorter.style.odd_row = 'alternate-row';
+
 					sorter.sorting.sortascstyle = 'column-active-up';
 					sorter.sorting.sortdescstyle = 'column-active-down';
+
 					sorter.rendertable();
-					
+	
 					$('#export_data').click(function() {
 						window.open('<?php echo base_url() . '/links/download_to_file/master_list.csv/'; ?>'+$.base64.encode(encodeURI($('#product-table').tocsv(','))), '', '');
 					});
@@ -107,7 +113,7 @@
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Price</a></th>
 				</thead>
 <?php foreach ($links AS $index => $row): ?>
-				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
+				<tr>
 					<td><?php echo $row->location; ?></td>
 					<td><?php echo $row->contact_name; ?></td>
 					<td><?php echo $row->contact_email; ?></td>

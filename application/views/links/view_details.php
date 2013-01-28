@@ -15,9 +15,9 @@
 		foreach ($link AS $field => $data) {
 			$count++;
 	?>
-		<tr class="<?php echo ($count % 2 == 0) ? 'alternate-row' : ''; ?>">
-			<td><?php echo $field; ?>:</td>
-			<td><?php echo $data; ?></td>
+		<tr>
+			<td class="<?php echo ($count % 2 == 1) ? 'alternate-row' : ''; ?>"><?php echo $field; ?>:</td>
+			<td class="<?php echo ($count % 2 == 1) ? 'alternate-row' : ''; ?>"><?php echo $data; ?></td>
 		</tr>
 	<? } ?>
 	</table>

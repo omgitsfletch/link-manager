@@ -379,4 +379,36 @@ class Links extends CI_Controller
 			force_download($filename, $data);
 		}
 	}
+	
+	function valid_date($date)
+	{
+		$date_parts = explode('-', $date);
+		
+		// Must be valid date format consisting of three parts separated by hyphens
+		if (!is_array($date_parts) || count($date_parts) != 3) {
+			$this->form_validation->set_message('valid_date', 'The %s field must be in YYYY-MM-DD format.');
+			return FALSE;
+		}
+
+		// Check that all date parts are numeric
+		if (!is_numeric($date_parts[0]) || !is_numeric($date_parts[1]) || !is_numeric($date_parts[2])) {
+			$this->form_validation->set_message('valid_date', 'The %s field must be in YYYY-MM-DD format.');
+			return FALSE;
+		}
+
+		// Check proper length of all date parts
+		if (strlen($date_parts[0]) != 4 || strlen($date_parts[1]) != 2 || strlen($date_parts[2]) != 2) {
+			$this->form_validation->set_message('valid_date', 'The %s field must be in YYYY-MM-DD format.');
+			return FALSE;
+		}
+
+		// Check that the date is valid on Gregorian calendar
+		if (!checkdate($date_parts[1], $date_parts[2], $date_parts[0])) {
+			$this->form_validation->set_message('valid_date', 'The %s field does not seem to be a valid Gregorian date.');
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
 }

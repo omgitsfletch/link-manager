@@ -34,7 +34,7 @@
 		return false;
 		});
 	});
-	</script>  
+	</script>
 
 	<![if !IE 7]>
 	<!--  styled select box script version 1 -->
@@ -46,7 +46,7 @@
 	</script>
 	<![endif]>
 
-	<!--  styled select box script version 2 --> 
+	<!--  styled select box script version 2 -->
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$('.styledselect_form_1').selectbox({ inputClass: "styledselect_form_1" });
@@ -54,17 +54,17 @@
 	});
 	</script>
 
-	<!--  styled select box script version 3 --> 
+	<!--  styled select box script version 3 -->
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$('.styledselect_pages').selectbox({ inputClass: "styledselect_pages" });
 	});
 	</script>
 
-	<!--  styled file upload script --> 
+	<!--  styled file upload script -->
 	<script type="text/javascript" charset="utf-8">
 	$(function() {
-		$("input.file_1").filestyle({ 
+		$("input.file_1").filestyle({
 			image: "images/forms/choose-file.gif",
 			imageheight : 21,
 			imagewidth : 78,
@@ -79,14 +79,14 @@
 		$('a.info-tooltip ').tooltip({
 			track: true,
 			delay: 0,
-			fixPNG: true, 
+			fixPNG: true,
 			showURL: false,
 			showBody: " - ",
 			top: -35,
 			left: 5
 		});
 	});
-	</script> 
+	</script>
 
 	<!--  date picker script -->
 	<script type="text/javascript" charset="utf-8">
@@ -110,7 +110,7 @@
 				'dpClosed',
 				function(e, selected) { updateDate(selected[0]); }
 			);
-			
+
 		var updateDate = function (selectedDate, input_id) {
 			var selectedDate = new Date(selectedDate);
 
@@ -131,7 +131,7 @@
 
 <body>
 	<!-- Start: page-top-outer -->
-	<div id="page-top-outer">    
+	<div id="page-top-outer">
 
 	<!-- Start: page-top -->
 	<div id="page-top">
@@ -157,13 +157,13 @@
 
 	</div>
 	<!-- End: page-top-outer -->
-		
+
 	<div class="clear">&nbsp;</div>
-	
+
 	<!--  start nav-outer-repeat................................................................................................. START -->
-	<div class="nav-outer-repeat"> 
+	<div class="nav-outer-repeat">
 	<!--  start nav-outer -->
-	<div class="nav-outer"> 
+	<div class="nav-outer">
 
 			<!-- start nav-right -->
 			<div id="nav-right">
@@ -175,7 +175,7 @@
 				<div class="nav-divider">&nbsp;</div>
 				<?php echo anchor('logout', image_asset('shared/nav/nav_logout.gif', NULL, array('width' => 64, 'height' => 14)), array('id' => 'logout')); ?>
 				<div class="clear">&nbsp;</div>
-			
+
 				<!--  start account-content -->	
 				<div class="account-content">
 				<div class="account-drop-inner">
@@ -191,11 +191,11 @@
 					<a href="" id="acc-inbox">Inbox</a>
 					<div class="clear">&nbsp;</div>
 					<div class="acc-line">&nbsp;</div>
-					<a href="" id="acc-stats">Statistics</a> 
+					<a href="" id="acc-stats">Statistics</a>
 				</div>
 				</div>
 				<!--  end account-content -->
-			
+
 			</div>
 			<!-- end nav-right -->
 
@@ -213,9 +213,23 @@
 			</div>
 			</li>
 			</ul>
-			
+
 			<div class="nav-divider">&nbsp;</div>
 								
+			<ul class="<?php echo ($this->uri->segment(1) == 'profiles') ? 'current' : 'select'; ?>"><li><?php echo anchor('profiles/view', '<b>Client Profiles</b>'); ?>
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<div class="<?php echo ($this->uri->segment(1) == 'profiles') ? 'select_sub show' : 'select_sub'; ?>">
+				<ul class="sub">
+					<li class="<?php echo ($this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('profiles/view', 'View Client Profiles'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('profiles/add', 'Add Client Profile'); ?></li>
+				</ul>
+			</div>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+			</ul>
+
+			<div class="nav-divider">&nbsp;</div>
+
 			<ul class="<?php echo ($this->uri->segment(1) == 'links') ? 'current' : 'select'; ?>"><li><?php echo anchor('links/view', '<b>Links</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'links') ? 'select_sub show' : 'select_sub'; ?>">
@@ -229,9 +243,9 @@
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>
-			
+
 			<div class="nav-divider">&nbsp;</div>
-			
+
 			<ul class="<?php echo ($this->uri->segment(1) == 'goals') ? 'current' : 'select'; ?>"><li><?php echo anchor(current_url(), '<b>Goals</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'goals') ? 'select_sub show' : 'select_sub'; ?>">
@@ -241,7 +255,7 @@
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>
-			
+
 			<div class="nav-divider">&nbsp;</div>
 
 			<ul class="<?php echo ($this->uri->segment(1) == 'reports') ? 'current' : 'select'; ?>"><li><?php echo anchor('reports/generate', '<b>Reports</b>'); ?>
@@ -254,9 +268,9 @@
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>
-			
+
 			<div class="nav-divider">&nbsp;</div>
-			
+
 			<ul class="<?php echo ($this->uri->segment(1) == 'content') ? 'current' : 'select'; ?>"><li><?php echo anchor('../content/admin/articles', '<b>Content</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'content') ? 'select_sub show' : 'select_sub'; ?>">
@@ -266,9 +280,9 @@
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>
-            
+
 			<div class="nav-divider">&nbsp;</div>
-			
+
 			<ul class="<?php echo ($this->uri->segment(1) == 'writers') ? 'current' : 'select'; ?>"><li><?php echo anchor('../content/admin/writers', '<b>Writers</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'writers') ? 'select_sub show' : 'select_sub'; ?>">
@@ -279,7 +293,7 @@
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>
-			
+
 			<div class="clear"></div>
 			</div>
 			<div class="clear"></div>

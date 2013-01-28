@@ -228,6 +228,18 @@ $config['encryption_key'] = 'D51676C7626141F3DCE0D3CAADD9385AF50464DB90509C31F8D
 
 /*
 |--------------------------------------------------------------------------
+| Site Salt
+|--------------------------------------------------------------------------
+|
+| This string is concatenated with the user-specific salt string, and used with
+| the multi-round SHA-512 crypt() call to securely hash user passwords. Use 8
+| alphanumeric chars as anything more than 16 chars is cut off by the function
+|
+*/
+$config['site_salt'] = '2DE647FF';
+
+/*
+|--------------------------------------------------------------------------
 | Session Variables
 |--------------------------------------------------------------------------
 |
@@ -244,7 +256,7 @@ $config['encryption_key'] = 'D51676C7626141F3DCE0D3CAADD9385AF50464DB90509C31F8D
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'clearcom_session';
+$config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
@@ -296,8 +308,8 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_expire' = The number in seconds the token should expire.
 */
 $config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'clearcom_csrf_token';
-$config['csrf_cookie_name'] = 'clearcom_csrf_cookie';
+$config['csrf_token_name'] = 'ci_csrf_token';
+$config['csrf_cookie_name'] = 'ci_csrf_cookie';
 $config['csrf_expire'] = 7200;
 
 /*
