@@ -23,11 +23,11 @@ class Migration_Client_profiles extends CI_Migration {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `profile_notes` (
 				`profile_note_id` int(11) NOT NULL AUTO_INCREMENT,
-				`profile_id` int(11) NOT NULL ,
+				`profile_id` int(11) NOT NULL,
 				`date` date NOT NULL,
-				`note` TEXT NOT NULL ,
+				`note` TEXT NOT NULL,
 				PRIMARY KEY (`profile_note_id`),
-				INDEX (  `profile_id` )
+				INDEX (`profile_id`)
 			) ENGINE = INNODB  DEFAULT CHARSET=utf8;
 		");
 		$this->db->query("

@@ -67,11 +67,11 @@
 					<th class="table-header-options line-left"><a href="#">Options</a></th>
 				</tr>
 <?php foreach ($sites AS $index => $row): ?>
-				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
-					<td><?php echo $row->name; ?></td>
-					<td><?php echo $row->url; ?></td>
-					<td><?php echo ($row->default == 1) ? 'Yes' : 'No'; ?></td>
-					<td class="options-width">
+				<tr>
+					<td class="<?php echo ($index % 2 == 0) ? 'alternate-row' : ''; ?>"><?php echo $row->name; ?></td>
+					<td class="<?php echo ($index % 2 == 0) ? 'alternate-row' : ''; ?>"><?php echo $row->url; ?></td>
+					<td class="<?php echo ($index % 2 == 0) ? 'alternate-row' : ''; ?>"><?php echo ($row->default == 1) ? 'Yes' : 'No'; ?></td>
+					<td class="options-width <?php echo ($index % 2 == 0) ? 'alternate-row' : ''; ?>"">
 						<?php echo anchor("sites/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
 						<?php if (count($sites) > 1) { echo anchor("sites/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'site\')')); } ?>
 						<?php if ($row->default != 1) { echo anchor("sites/make_default/{$row->id}", ' ', array('title' => 'Make Default', 'class' => 'icon-3 info-tooltip')); } ?>

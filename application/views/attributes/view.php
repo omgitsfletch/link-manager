@@ -67,9 +67,9 @@
 				</tr>
 <?php foreach ($results AS $index => $row): ?>
 				<tr class="<?php echo ($index % 2 == 1) ? 'alternate-row' : ''; ?>">
-					<td><input type="checkbox" name="items[<?php echo $row->id; ?>]" /></td>
-					<td><?php echo $row->{$this->singular}; ?></td>
-					<td class="options-width-small">
+					<td class="<?php echo ($index % 2 == 0) ? 'alternate-row' : ''; ?>"><input type="checkbox" name="items[<?php echo $row->id; ?>]" /></td>
+					<td class="<?php echo ($index % 2 == 0) ? 'alternate-row' : ''; ?>"><?php echo $row->{$this->singular}; ?></td>
+					<td class="options-width-small <?php echo ($index % 2 == 0) ? 'alternate-row' : ''; ?>">
 						<?php echo anchor("{$this->plural}/edit/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
 						<?php echo anchor("{$this->plural}/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => "return confirm_delete('{$this->singular}')")); ?>
 					</td>
