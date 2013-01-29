@@ -106,18 +106,6 @@ $(document).ready(function(){
 <div id="chart2" style="width:80%;margin-left:10%;"></div></div>
 			<div>
 
-			<!--  start actions-box ............................................... -->
-			<div id="actions-box">
-				<a href="" class="action-slider"></a>
-				<div id="actions-box-slider">
-					<?php echo anchor("goals/due_date/{$this->session->userdata('site_id')}", 'Edit Date', array('class' => 'action-edit')); ?>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<!-- end actions-box........... -->
-			
-			<div class="clear"></div>
-		 
 		</div>
 		<!--  end content-table-inner ............................................END  -->
 		</td>
@@ -197,7 +185,20 @@ $(document).ready(function(){
 				<!--  end product-table................................... --> 
 			</div>
 			<!--  end content-table  -->
-		 
+
+			<!--  start actions-box ............................................... -->
+			<div id="actions-box">
+				<a href="" class="action-slider"></a>
+				<div id="actions-box-slider">
+					<?php echo anchor("goals/due_date/{$this->session->userdata('site_id')}", 'Edit Date', array('class' => 'action-edit')); ?>
+					<?php echo anchor("goals/add_link", 'Add Link', array('class' => 'action-edit')); ?>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- end actions-box........... -->
+
+			<div class="clear"></div>
+
 		</div>
 		<!--  end content-table-inner ............................................END  -->
 		</td>
