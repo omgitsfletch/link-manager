@@ -336,6 +336,10 @@ a:hover.icon-5	{
 #product-table	{
 	margin-bottom: 20px;
 }
+#product-table tr.inactive {
+	font-style: italic;
+	color: #888888;
+}
 #product-table	td a	{
 	color: #393939;
 }

@@ -92,6 +92,7 @@ function confirm_delete(item) {
 		type:"Deleting a type will empty the type field for any links using that record. Are you sure you wish to continue?",
 		status:"Deleting a status will empty the status field for any links using that record. Are you sure you wish to continue?",
 		category:"Deleting a category will empty the category field for any links using that record. Are you sure you wish to continue?",
+		mark_link_active:"Marking this item active will remove this link from the table. Are you sure you wish to continue?"
 	}
 
 	if (typeof messages[item] == 'undefined')

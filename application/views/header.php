@@ -10,6 +10,7 @@
 	<?php
 	echo css_asset('screen.css', NULL, array('media' => 'screen', 'title' => 'default')) . "\n";
 	echo css_asset('datePicker.css') . "\n";
+	echo css_asset('jquery.jqplot.css') . "\n";
 
 	echo js_asset('jquery/jquery-1.4.1.min.js') . "\n";
 	echo js_asset('jquery/jquery.base64.min.js') . "\n";
@@ -24,6 +25,11 @@
 	echo js_asset('jquery/date.js') . "\n";
 	echo js_asset('jquery/jquery.datePicker.js') . "\n";
 	echo js_asset('jquery/tquery.js') . "\n";
+	
+	echo js_asset('jqplot/jquery.jqplot.min.js') . "\n";
+	echo js_asset('jqplot/jqplot.canvasTextRenderer.min.js') . "\n";
+	echo js_asset('jqplot/jqplot.canvasAxisLabelRenderer.min.js') . "\n";
+	echo js_asset('jqplot/jqplot.canvasOverlay.js') . "\n";
 	?>
 	<script type="text/javascript">
 	$(function(){
@@ -35,6 +41,8 @@
 		});
 	});
 	</script>
+	
+	<!--[if lt IE 9]><?php echo js_asset('jqplot/excanvas.min.js') . "\n"; ?><![endif]-->
 
 	<![if !IE 7]>
 	<!--  styled select box script version 1 -->
@@ -246,10 +254,11 @@
 
 			<div class="nav-divider">&nbsp;</div>
 
-			<ul class="<?php echo ($this->uri->segment(1) == 'goals') ? 'current' : 'select'; ?>"><li><?php echo anchor(current_url(), '<b>Goals</b>'); ?>
+			<ul class="<?php echo ($this->uri->segment(1) == 'goals') ? 'current' : 'select'; ?>"><li><?php echo anchor('goals/view', '<b>Goals</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'goals') ? 'select_sub show' : 'select_sub'; ?>">
 				<ul class="sub">
+					<li class="<?php echo ($this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('goals/view', 'View Goals'); ?></li>
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
