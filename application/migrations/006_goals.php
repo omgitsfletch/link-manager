@@ -5,15 +5,16 @@ class Migration_Goals extends CI_Migration {
 	public function up()
 	{
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `goal_due_dates` (
+			CREATE TABLE IF NOT EXISTS `goal_params` (
 				`site_id` int(11) NOT NULL,
+				`links_needed` int(4) unsigned NOT NULL,
 				`day_of_month` TINYINT NOT NULL,
 				PRIMARY KEY (`site_id`)
 			) ENGINE = INNODB  DEFAULT CHARSET=utf8;
 		");
 		$this->db->query("
-			ALTER TABLE `goal_due_dates`
-				ADD CONSTRAINT `goal_due_dates_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `sites` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+			ALTER TABLE `goal_params`
+				ADD CONSTRAINT `goal_params_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `sites` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 		");
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `goal_links` (
@@ -40,11 +41,11 @@ class Migration_Goals extends CI_Migration {
 				DROP FOREIGN KEY `goal_links_ibfk_1`;
 		");
 		$this->db->query("
-			ALTER TABLE `goal_due_dates`
-				DROP FOREIGN KEY `goal_due_dates_ibfk_1`;
+			ALTER TABLE `goal_params`
+				DROP FOREIGN KEY `goal_params_ibfk_1`;
 		");
 		$this->dbforge->drop_table('goal_links');
-		$this->dbforge->drop_table('goal_due_dates');
+		$this->dbforge->drop_table('goal_params');
 	}
 	
 }

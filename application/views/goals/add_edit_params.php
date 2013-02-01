@@ -40,13 +40,18 @@
 			<form action="<?php echo current_url(); ?>" method="POST">
 			<table border="0" cellpadding="0" cellspacing="0"  id="id-form">
 			<tr>
+				<th valign="top">Links Needed:</th>
+				<td><input name="links_needed" type="text" value="<?php echo set_value('links_needed', (isset($params->links_needed) ? $params->links_needed : '')); ?>" class="<?php echo (form_error('links_needed')) ? 'inp-form-error' : 'inp-form'; ?>" /></td>
+				<td><?php echo form_error('links_needed'); ?></td>
+			</tr>
+			<tr>
 				<th valign="top">Due Date:</th>
 				<td>	
 					<select name="due_date" class="styledselect_form_1">
 <?php
 	echo "<option value=\"\">** Select a due date! **</option>";
 	for ($i = 1; $i <= 31; $i++) {
-		$selected = ( (isset($due_date->day_of_month)) && ($due_date->day_of_month == $i) ) ? 'selected="selected"' : '';
+		$selected = ( (isset($params->day_of_month)) && ($params->day_of_month == $i) ) ? 'selected="selected"' : '';
 		echo "<option value=\"{$i}\" {$selected}>$i</option>";
 	}
 ?>

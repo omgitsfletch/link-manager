@@ -61,28 +61,34 @@
 			<div id="table-content">	
 
 				<h2>Due Date: <?php echo $print_due_date; ?></h2>
+				<h2>Links Needed: <?php echo $links_needed; ?></h2>
 <script type="text/javascript">
 $(document).ready(function(){
-	var cosPoints = []; 
-	cosPoints.push([1, 1]);
-	cosPoints.push([4, 2]); 
-	cosPoints.push([6, 3]); 
-	cosPoints.push([19, 5]);
+	var points = [];
+<?php foreach ($link_counts AS $day => $count): ?>
+	points.push([<?php echo "{$day},{$count}" ;?>]);
+<?php endforeach; ?>
+	var date_ticks = <?php echo $date_ticks; ?>;
 	
-	var plot2 = $.jqplot('chart2', [cosPoints], {  
+	var plot2 = $.jqplot('chart2', [points], {  
 		series:[{showMarker:false}],
 		axes:{
 			xaxis:{
 				label:'Date',
 				labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-				showTicks: false
+				tickInterval: 7,
+				showMinorTicks: true,
+				min:0,
+				max: <?php echo ceil($date_range/7)*7; ?>,
+				tickOptions: { formatter: function(format, value) { return date_ticks[value]; } }
 			},
 			yaxis:{
 				rendererOptions: { forceTickAt0: true, forceTickAt100: true },
 				label:'Links',
 				labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+				tickInterval: 5,
 				min: 0,
-				max: 20
+				max: <?php echo $links_needed + 5; ?>
 			}
 		},
 		canvasOverlay: {
@@ -90,12 +96,22 @@ $(document).ready(function(){
 			objects: [
 				{dashedHorizontalLine: {
 					name: 'bam-bam',
-					y: 15,
+					y: <?php echo $links_needed; ?>,
 					lineWidth: 4,
 					dashPattern: [8, 16],
 					lineCap: 'round',
 					xOffset: 0,
 					color: 'rgb(66, 98, 144)',
+					shadow: false
+				}},
+				{dashedVerticalLine: {
+					name: 'bam-bam2',
+					x: <?php echo $date_range; ?>,
+					lineWidth: 4,
+					dashPattern: [8, 16],
+					lineCap: 'square',
+					yOffset: 0,
+					color: 'rgb(132, 143, 144)',
 					shadow: false
 				}}
 			]
@@ -190,7 +206,7 @@ $(document).ready(function(){
 			<div id="actions-box">
 				<a href="" class="action-slider"></a>
 				<div id="actions-box-slider">
-					<?php echo anchor("goals/due_date/{$this->session->userdata('site_id')}", 'Edit Date', array('class' => 'action-edit')); ?>
+					<?php echo anchor("goals/edit_params/{$this->session->userdata('site_id')}", 'Edit Params', array('class' => 'action-edit')); ?>
 					<?php echo anchor("goals/add_link", 'Add Link', array('class' => 'action-edit')); ?>
 				</div>
 				<div class="clear"></div>
