@@ -27,9 +27,9 @@
 	echo js_asset('jquery/tquery.js') . "\n";
 	
 	echo js_asset('jqplot/jquery.jqplot.min.js') . "\n";
-	echo js_asset('jqplot/jqplot.canvasTextRenderer.min.js') . "\n";
-	echo js_asset('jqplot/jqplot.canvasAxisLabelRenderer.min.js') . "\n";
-	echo js_asset('jqplot/jqplot.canvasOverlay.js') . "\n";
+	echo js_asset('jqplot/jqplot.barRenderer.min.js') . "\n";
+	echo js_asset('jqplot/jqplot.categoryAxisRenderer.min.js') . "\n";
+	echo js_asset('jqplot/jqplot.pointLabels.min.js') . "\n";
 	?>
 	<script type="text/javascript">
 	$(function(){

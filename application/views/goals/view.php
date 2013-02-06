@@ -43,13 +43,13 @@
 	</div>
 	<!-- end page-heading -->
 
-	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table" style="height: 140px !important;">
 	<tr>
-		<th rowspan="3" class="sized"><?php echo image_asset('shared/side_shadowleft.jpg', NULL, array('width' => 20, 'height' => 300)); ?></th>
+		<th rowspan="3" class="sized"><?php echo image_asset('shared/side_shadowleft.jpg', NULL, array('width' => 20, 'height' => 180)); ?></th>
 		<th class="topleft"></th>
 		<td id="tbl-border-top">&nbsp;</td>
 		<th class="topright"></th>
-		<th rowspan="3" class="sized"><?php echo image_asset('shared/side_shadowright.jpg', NULL, array('width' => 20, 'height' => 300)); ?></th>
+		<th rowspan="3" class="sized"><?php echo image_asset('shared/side_shadowright.jpg', NULL, array('width' => 20, 'height' => 180)); ?></th>
 	</tr>
 	<tr>
 		<td id="tbl-border-left"></td>
@@ -58,68 +58,42 @@
 		<div id="content-table-inner">
 		
 			<!--  start table-content  -->
-			<div id="table-content">	
+			<div id="table-content" style="height: 120px; min-height: 0px !important;">	
 
 				<h2>Due Date: <?php echo $print_due_date; ?></h2>
 				<h2>Links Needed: <?php echo $links_needed; ?></h2>
 <script type="text/javascript">
 $(document).ready(function(){
 	var points = [];
-<?php foreach ($link_counts AS $day => $count): ?>
-	points.push([<?php echo "{$day},{$count}" ;?>]);
-<?php endforeach; ?>
-	var date_ticks = <?php echo $date_ticks; ?>;
+	points.push([10,'']);
 	
 	var plot2 = $.jqplot('chart2', [points], {  
-		series:[{showMarker:false}],
+        seriesDefaults: {
+            renderer:$.jqplot.BarRenderer,
+            pointLabels: { show: true, location: 'e', edgeTolerance: -15 },
+            shadowAngle: 135,
+			showMarker:false,
+            rendererOptions: {
+                barDirection: 'horizontal'
+            }
+        },
 		axes:{
 			xaxis:{
-				label:'Date',
-				labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-				tickInterval: 7,
-				showMinorTicks: true,
-				min:0,
-				max: <?php echo ceil($date_range/7)*7; ?>,
-				tickOptions: { formatter: function(format, value) { return date_ticks[value]; } }
-			},
-			yaxis:{
-				rendererOptions: { forceTickAt0: true, forceTickAt100: true },
-				label:'Links',
+				label:'Links Needed',
 				labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 				tickInterval: 5,
 				min: 0,
-				max: <?php echo $links_needed + 5; ?>
+				max: <?php echo $links_needed; ?>
+			},
+			yaxis: {
+				renderer: $.jqplot.CategoryAxisRenderer
 			}
-		},
-		canvasOverlay: {
-			show: true,
-			objects: [
-				{dashedHorizontalLine: {
-					name: 'bam-bam',
-					y: <?php echo $links_needed; ?>,
-					lineWidth: 4,
-					dashPattern: [8, 16],
-					lineCap: 'round',
-					xOffset: 0,
-					color: 'rgb(66, 98, 144)',
-					shadow: false
-				}},
-				{dashedVerticalLine: {
-					name: 'bam-bam2',
-					x: <?php echo $date_range; ?>,
-					lineWidth: 4,
-					dashPattern: [8, 16],
-					lineCap: 'square',
-					yOffset: 0,
-					color: 'rgb(132, 143, 144)',
-					shadow: false
-				}}
-			]
 		}
 	});
+
 });
 </script>
-<div id="chart2" style="width:80%;margin-left:10%;"></div></div>
+				<div id="chart2" style="width:80%;height: 80px;margin-left:10%;"></div>
 			<div>
 
 		</div>
