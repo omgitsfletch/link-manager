@@ -12,13 +12,8 @@ class Links extends CI_Controller
 		}
 	}
 
-	function view($sort = 'date', $dir = 1)
+	function view()
 	{
-		$query_dir = ($dir == 1) ? 'DESC' : 'ASC';
-		
-		$data['sort'] = $sort;
-		$data['dir'] = $dir;
-
 		$get_links = $this->db
 			->select('l.link_id AS id,l.url,l.text,t.type,s.status,c.category,l.date,l.location')
 			->from('links l')
@@ -26,7 +21,7 @@ class Links extends CI_Controller
 			->join('statuses s', 's.status_id = l.status_id', 'left outer')
 			->join('categories c', 'c.category_id = l.category_id', 'left outer')
 			->where('l.site_id', $this->session->userdata('site_id'))
-			->order_by($sort, $query_dir)
+			->order_by('l.date', 'DESC')
 			->get();
 		$data['links'] = $get_links->result();
 
@@ -379,7 +374,34 @@ class Links extends CI_Controller
 			force_download($filename, $data);
 		}
 	}
-	
+
+	function monitor()
+	{
+		$get_links = $this->db->query(sprintf("
+			SELECT
+				l.link_id AS id,
+				l.url,
+				l.text,
+				l.location,
+				(SELECT lc1.date FROM link_checks lc1 WHERE lc1.link_id = l.link_id ORDER BY lc1.date DESC LIMIT 1) AS date,
+				(SELECT lc2.status FROM link_checks lc2 WHERE lc2.link_id = l.link_id ORDER BY lc2.date DESC LIMIT 1) AS status,
+				(SELECT lc3.nofollow FROM link_checks lc3 WHERE lc3.link_id = l.link_id ORDER BY lc3.date DESC LIMIT 1) AS nofollow
+			FROM
+				links l
+			WHERE
+				l.site_id = %d
+			ORDER BY
+				l.date DESC",
+			$this->session->userdata('site_id')
+		));
+		$data['links'] = $get_links->result();
+
+		$data['page'] = 'links/monitor';
+		$data['title'] = 'Link Monitoring';
+
+		$this->load->view('shell', $data);
+	}
+
 	function valid_date($date)
 	{
 		$date_parts = explode('-', $date);
