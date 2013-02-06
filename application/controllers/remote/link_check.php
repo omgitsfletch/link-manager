@@ -22,12 +22,9 @@ class Link_check extends CI_Controller
 				(SELECT lc.date FROM link_checks lc WHERE lc.link_id = l.link_id ORDER BY date DESC LIMIT 1) AS last_checked
 			FROM
 				links l
-			WHERE
-				l.site_id = %d
 			HAVING
 				(last_checked IS NULL OR
 				DATEDIFF(NOW(), last_checked) >= 14)",
-			$this->session->userdata('site_id')
 		));
 		$links = $get_links->result();
 
