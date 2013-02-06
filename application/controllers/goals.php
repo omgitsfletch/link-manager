@@ -80,67 +80,17 @@ class Goals extends CI_Controller
 				$end_date = date('Y-m-d', mktime(1, 1, 1, $this_month, $data['due_date'], $this_year));
 		}
 
-		
-		$get_link_counts = $this->db->query(sprintf("
-			SELECT
-				DATEDIFF(date, '%s') AS day,
-				(SELECT
-					COUNT(li.link_id)
-				FROM
-					links li
-				WHERE 
-					li.date >= '%s' AND 
-					li.date <= l.date) AS count
-			FROM
-				links l 
-			WHERE
-				l.date >= '%s' AND 
-				l.date <= '%s'
-			GROUP BY
-				l.date
-			ORDER BY
-				l.date ASC",
-			$start_date,
-			$start_date,
-			$start_date,
-			$end_date
-		));
-		$link_counts_result = $get_link_counts->result();
-		
-		// Convert initial data to different array format
-		$link_counts = array();
-		foreach ($link_counts_result AS $record)
-			$link_counts[$record->day] = $record->count;
 
-		// Fill in data for missing days
-		$prev_count = 0;
-		for ($i = 0; $i <= max(array_keys($link_counts)); $i++) {
-			if (!isset($link_counts[$i]))
-				$link_counts[$i] = $prev_count;
-			else
-				$prev_count = $link_counts[$i];
-		}
-		ksort($link_counts);			
-		$data['link_counts'] = $link_counts;
+		$get_link_count = $this->db
+			->select('COUNT(link_id) AS cnt')
+			->from('links')
+			->where('date >=', $start_date)
+			->where('date <=', $end_date)
+			->get();
+		$link_count_result = $get_link_count->row();
+		$data['link_count'] = $link_count_result->cnt;
 
 
-		// Calculate date ticks
-		$start_dt = new DateTime($start_date);
-		$end_dt = new DateTime($end_date);
-		$interval = $start_dt->diff($end_dt);
-		$diff = $interval->format('%a');
-		$data['date_range'] = $diff;
-		$data['date_range'] = 30;
-		$date_ticks = array(date('m/d', strtotime($start_date)));
-		$new_dt = $start_dt;
-		for ($i = 7; $i <= $diff; $i += 7) {
-			$interval = ($diff - $i >= 7) ? 7 : $diff - $i;
-			$new_dt->add(new DateInterval("P{$interval}D"));
-			$date_ticks[$i] = $new_dt->format('m/d');
-		}
-		$data['date_ticks'] = json_encode($date_ticks);
-
-		
 		$get_needed_links = $this->db
 			->select('goal_link_id AS id,text,url,status')
 			->from('goal_links')

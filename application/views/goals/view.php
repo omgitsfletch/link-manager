@@ -65,7 +65,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var points = [];
-	points.push([10,'']);
+	points.push([<?php echo $link_count; ?>,'']);
 	
 	var plot2 = $.jqplot('chart2', [points], {  
         seriesDefaults: {
