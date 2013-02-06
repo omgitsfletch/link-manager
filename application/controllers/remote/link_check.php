@@ -38,6 +38,7 @@ class Link_check extends CI_Controller
 			// Fetch failed, record as error
 			if ($site_html === FALSE) {
 				$results[$index] = array('link_id' => $link->id, 'date' => date('Y-m-d'), 'status' => 'Error');
+				$this->db->insert('link_checks', $results[$index]);
 				continue;
 			}
 
@@ -55,11 +56,11 @@ class Link_check extends CI_Controller
 					$results[$index]['nofollow'] = FALSE;
 			}
 
+			// Record result to database
+			$this->db->insert('link_checks', $results[$index]);
+
+			// Add some time limit since it's network intensive cURL page fetching
 			set_time_limit(15);
-		}
-		
-		foreach ($results AS $link_id => $check_data) {
-			$this->db->insert('link_checks', $check_data);
 		}
 
 		print '<pre>'; print_r($results);
