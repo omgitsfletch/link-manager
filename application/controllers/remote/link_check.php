@@ -6,10 +6,6 @@ class Link_check extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
-		if ($this->session->userdata('logged_in') == FALSE) {
-			redirect('login');
-		}
 	}
 
 	function check_links()
