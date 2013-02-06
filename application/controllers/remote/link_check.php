@@ -13,7 +13,7 @@ class Link_check extends CI_Controller
 		// Include DOM parser library
 		$this->load->helper('curl');
 	
-		$get_links = $this->db->query(sprintf("
+		$get_links = $this->db->query("
 			SELECT
 				l.link_id AS id,
 				l.url,
@@ -24,8 +24,8 @@ class Link_check extends CI_Controller
 				links l
 			HAVING
 				(last_checked IS NULL OR
-				DATEDIFF(NOW(), last_checked) >= 14)",
-		));
+				DATEDIFF(NOW(), last_checked) >= 14)"
+		);
 		$links = $get_links->result();
 
 		$results = array();
