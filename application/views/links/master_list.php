@@ -71,8 +71,6 @@
 					</div>
 				</div>
 				
-
-				
 				<script type="text/javascript">
 				$(document).ready(function() {
 					var sorter = new ttable('product-table'); 
@@ -102,7 +100,6 @@
 				
 				<br/><br/><br/>
 
-				<form id="mainform" action="<?php echo base_url() . 'links/delete_multi'; ?>" method="POST">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<thead>
 					<th class="table-header-repeat line-left minwidth-1"><a href="">Domain</a></th>
@@ -123,7 +120,6 @@
 				</tr>
 <?php endforeach; ?>
 				</table>
-				</form>
 				
 				<div style="float:right;">
 					<a href="#" id="export_data" style="color:black;">[Export Data]</a>

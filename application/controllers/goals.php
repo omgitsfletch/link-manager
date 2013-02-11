@@ -104,6 +104,37 @@ class Goals extends CI_Controller
 		$this->load->view('shell', $data);
 	}
 
+	function add_link()
+	{
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('text', 'Text', 'required|max_length[100]');
+		$this->form_validation->set_rules('url', 'URL', 'required|max_length[100]');
+
+		$this->form_validation->set_error_delimiters('<div class="error-left"></div><div class="error-inner">','</div>');
+
+		if ($this->form_validation->run() == FALSE) {
+			$data['page'] = 'goals/add_link';
+			$data['title'] = 'Add Goal Link';
+
+			$this->load->view('shell', $data);
+		} else {
+			$data = array(
+				'text' => $this->input->post('text'),
+				'url' => $this->input->post('url'),
+				'site_id' => $this->session->userdata('site_id')
+			);
+			$insert_link = $this->db->insert('goal_links', $data);
+			
+			if ($insert_link)
+				$this->session->set_flashdata('message_success', "Goal link successfully added.");
+			else
+				$this->session->set_flashdata('message_failure', "Could not add goal link.");
+
+			redirect('goals/view');
+		}
+	}
+
 	function mark_link_active($link_id = NULL)
 	{
 		if ($link_id) {
