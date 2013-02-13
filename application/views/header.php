@@ -280,7 +280,7 @@
 			<div class="<?php echo ($this->uri->segment(1) == 'profiles') ? 'select_sub show' : 'select_sub'; ?>">
 				<ul class="sub">
 					<li class="<?php echo ($this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('profiles/view', 'View Client Profiles'); ?></li>
-					<li class="<?php echo ($this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('profiles/add', 'Add Client Profile'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('profiles/add_profile', 'Add Client Profile'); ?></li>
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->

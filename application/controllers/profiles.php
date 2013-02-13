@@ -20,15 +20,33 @@ class Profiles extends CI_Controller
 			->where('p.site_id', $this->session->userdata('site_id'))
 			->order_by('p.profile_id', 'asc')
 			->get();
+
+		$get_tasks = $this->db
+			->select('profile_task_id AS id,due_date,status,note')
+			->from('profile_tasks')
+			->where('site_id', $this->session->userdata('site_id'))
+			->order_by('due_date','asc')
+			->get();
+
+		$get_notes = $this->db
+			->select('profile_note_id AS id,date,note')
+			->from('profile_notes')
+			->where('site_id', $this->session->userdata('site_id'))
+			->order_by('date','asc')
+			->get();
+					
 		$data['profiles'] = $get_profiles->result();
+		$data['tasks'] = $get_tasks->result();
+		$data['notes'] = $get_notes->result();
 
 		$data['page'] = 'profiles/view';
-		$data['title'] = 'View Client Profiles';
+		$data['title'] = 'View Client Details';
+		$data['title2'] = 'View Client Notes';
 
 		$this->load->view('shell', $data);
 	}
 
-	function add()
+	function add_profile()
 	{
 		$this->load->library('form_validation');
 
@@ -40,7 +58,7 @@ class Profiles extends CI_Controller
 		$this->form_validation->set_error_delimiters('<div class="error-left"></div><div class="error-inner">','</div>');
 
 		if ($this->form_validation->run() == FALSE) {
-			$data['page'] = 'profiles/add_edit';
+			$data['page'] = 'profiles/add_edit_profile';
 			$data['title'] = 'Add Client Profile';
 
 			$this->load->view('shell', $data);
@@ -63,7 +81,7 @@ class Profiles extends CI_Controller
 		}
 	}
 
-	function edit($id = NULL)
+	function edit_profile($id = NULL)
 	{
 		$this->load->library('form_validation');
 
@@ -84,7 +102,7 @@ class Profiles extends CI_Controller
 
 			if ($get_profile->num_rows() == 1) {
 				if ($this->form_validation->run() == FALSE) {
-					$data['page'] = 'profiles/add_edit';
+					$data['page'] = 'profiles/add_edit_profile';
 					$data['title'] = 'Edit Client Profile';
 
 					$this->load->view('shell', $data);
@@ -117,7 +135,7 @@ class Profiles extends CI_Controller
 		}
 	}
 
-	function delete($id = NULL)
+	function delete_profile($id = NULL)
 	{
 		if ($id) {
 			$delete_profile = $this->db
@@ -136,7 +154,7 @@ class Profiles extends CI_Controller
 		}
 	}
 
-	function delete_multi()
+	function delete_profile_multi()
 	{
 		$items = $this->input->post('items');
 		if (is_array($items) && count($items) > 0) {
@@ -166,42 +184,7 @@ class Profiles extends CI_Controller
 		redirect('profiles/view');
 	}
 
-	function view_notes($profile_id = NULL)
-	{
-		if ($profile_id) {
-			$get_profile = $this->db
-				->select('profile_id AS id,name,address,phone,urls')
-				->from('profiles')
-				->where('profile_id', $profile_id)
-				->get();
-
-			if ($get_profile->num_rows() == 1) {
-				$get_notes = $this->db
-					->select('profile_note_id AS id,date,note')
-					->from('profile_notes')
-					->where('profile_id', $profile_id)
-					->order_by('date','desc')
-					->get();
-					
-				$data['profile'] = $get_profile->row();
-				$data['notes'] = $get_notes->result();
-
-				$data['page'] = 'profiles/view_notes';
-				$data['title'] = 'View Client Details';
-				$data['title2'] = 'View Client Notes';
-
-				$this->load->view('shell', $data);
-			} else {
-				$this->session->set_flashdata('message_notification', 'Invalid profile ID in URL. Please try again.');
-				redirect('profiles/view');
-			}
-		} else {
-			$this->session->set_flashdata('message_notification', 'No profile ID in URL. Please try again.');
-			redirect('profiles/view');
-		}
-	}
-
-	function add_note($profile_id = NULL)
+	function add_note()
 	{
 		$this->load->library('form_validation');
 
@@ -210,40 +193,24 @@ class Profiles extends CI_Controller
 
 		$this->form_validation->set_error_delimiters('<div class="error-left"></div><div class="error-inner">','</div>');
 
-		if ($profile_id) {
-			$check_valid_profile = $this->db
-				->select('profile_id')
-				->from('profiles')
-				->where('profile_id', $profile_id)
-				->get();
+		if ($this->form_validation->run() == FALSE) {
+			$data['page'] = 'profiles/add_edit_note';
+			$data['title'] = 'Add Client Note';
 
-			if ($check_valid_profile->num_rows() == 1) {
-				if ($this->form_validation->run() == FALSE) {
-					$data['page'] = 'profiles/add_edit_note';
-					$data['title'] = 'Add Client Note';
-
-					$this->load->view('shell', $data);
-				} else {
-					$data = array(
-						'date' => $this->input->post('date'),
-						'note' => $this->input->post('note'),
-						'profile_id' => $profile_id
-					);
-					$insert_note = $this->db->insert('profile_notes', $data);
-					
-					if ($insert_note)
-						$this->session->set_flashdata('message_success', "Client note successfully added.");
-					else
-						$this->session->set_flashdata('message_failure', "Could not add client note.");
-
-					redirect("profiles/view_notes/{$profile_id}");
-				}
-			} else {
-				$this->session->set_flashdata('message_notification', 'Invalid profile ID in URL. Please try again.');
-				redirect('profiles/view');
-			}
+			$this->load->view('shell', $data);
 		} else {
-			$this->session->set_flashdata('message_notification', 'No profile ID in URL. Please try again.');
+			$data = array(
+				'date' => $this->input->post('date'),
+				'note' => $this->input->post('note'),
+				'site_id' => $this->session->userdata('site_id')
+			);
+			$insert_note = $this->db->insert('profile_notes', $data);
+			
+			if ($insert_note)
+				$this->session->set_flashdata('message_success', "Client note successfully added.");
+			else
+				$this->session->set_flashdata('message_failure', "Could not add client note.");
+
 			redirect('profiles/view');
 		}
 	}
@@ -259,7 +226,7 @@ class Profiles extends CI_Controller
 
 		if ($note_id) {
 			$get_note = $this->db
-				->select('profile_id,date,note')
+				->select('date,note')
 				->from('profile_notes')
 				->where('profile_note_id', $note_id)
 				->get();
@@ -287,7 +254,7 @@ class Profiles extends CI_Controller
 					else
 						$this->session->set_flashdata('message_failure', "Could not edit client note.");
 
-					redirect("profiles/view_notes/{$note_data->profile_id}");
+					redirect('profiles/view');
 				}
 			} else {
 				$this->session->set_flashdata('message_notification', 'Invalid note ID in URL. Please try again.');
@@ -299,26 +266,179 @@ class Profiles extends CI_Controller
 		}
 	}
 
-	function delete_note($profile_id = NULL, $note_id = NULL)
+	function delete_note($note_id = NULL)
 	{
-		if ($profile_id) {
-			if ($note_id) {
-				$delete_note = $this->db
-					->where('profile_note_id', $note_id)
-					->delete('profile_notes');
+		if ($note_id) {
+			$delete_note = $this->db
+				->where('profile_note_id', $note_id)
+				->delete('profile_notes');
 
-				if ($delete_note)
-					$this->session->set_flashdata('message_success', "Client note successfully deleted.");
-				else
-					$this->session->set_flashdata('message_failure', "Could not delete client note.");
+			if ($delete_note)
+				$this->session->set_flashdata('message_success', "Client note successfully deleted.");
+			else
+				$this->session->set_flashdata('message_failure', "Could not delete client note.");
+				
+			redirect("profiles/view");
+		} else {
+			$this->session->set_flashdata('message_notification', 'No note ID in URL. Please try again.');
+			redirect("profiles/view");
+		}
+	}
+
+	function add_task()
+	{
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('due_date', 'Due Date', 'required|callback_valid_date');
+		$this->form_validation->set_rules('note', 'Note', 'required|max_length[4096]');
+
+		$this->form_validation->set_error_delimiters('<div class="error-left"></div><div class="error-inner">','</div>');
+
+		if ($this->form_validation->run() == FALSE) {
+			$data['page'] = 'profiles/add_edit_task';
+			$data['title'] = 'Add Client Task';
+
+			$this->load->view('shell', $data);
+		} else {
+			$data = array(
+				'due_date' => $this->input->post('due_date'),
+				'note' => $this->input->post('note'),
+				'site_id' => $this->session->userdata('site_id')
+			);
+			$insert_task = $this->db->insert('profile_tasks', $data);
+			
+			if ($insert_task)
+				$this->session->set_flashdata('message_success', 'Client task successfully added.');
+			else
+				$this->session->set_flashdata('message_failure', 'Could not add client task.');
+
+			redirect('profiles/view');
+		}
+	}
+
+	function edit_task($task_id = NULL)
+	{
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('due_date', 'Due Date', 'required|callback_valid_date');
+		$this->form_validation->set_rules('note', 'note', 'required|max_length[4096]');
+
+		$this->form_validation->set_error_delimiters('<div class="error-left"></div><div class="error-inner">','</div>');
+
+		if ($task_id) {
+			$get_task = $this->db
+				->select('due_date,note')
+				->from('profile_tasks')
+				->where('profile_task_id', $task_id)
+				->get();
+
+			if ($get_task->num_rows() == 1) {
+				$task_data = $get_task->row();
+				$data['task'] = $task_data;
+
+				if ($this->form_validation->run() == FALSE) {
+					$data['page'] = 'profiles/add_edit_task';
+					$data['title'] = 'Edit Client task';
+
+					$this->load->view('shell', $data);
+				} else {
+					$data = array(
+						'due_date' => $this->input->post('due_date'),
+						'note' => $this->input->post('note')
+					);
+					$edit_task = $this->db
+						->where('profile_task_id', $task_id)
+						->update('profile_tasks', $data);
 					
-				redirect("profiles/view_notes/{$profile_id}");
+					if ($edit_task)
+						$this->session->set_flashdata('message_success', "Client task successfully edited.");
+					else
+						$this->session->set_flashdata('message_failure', "Could not edit client task.");
+
+					redirect('profiles/view');
+				}
 			} else {
-				$this->session->set_flashdata('message_notification', 'No note ID in URL. Please try again.');
-				redirect("profiles/view_notes/{$profile_id}");
+				$this->session->set_flashdata('message_notification', 'Invalid task ID in URL. Please try again.');
+				redirect('profiles/view');
 			}
 		} else {
-			$this->session->set_flashdata('message_notification', 'No profile ID in URL. Please try again.');
+			$this->session->set_flashdata('message_notification', 'No task ID in URL. Please try again.');
+			redirect('profiles/view');
+		}
+	}
+
+	function delete_task($task_id = NULL)
+	{
+		if ($task_id) {
+			$delete_task = $this->db
+				->where('profile_task_id', $task_id)
+				->delete('profile_tasks');
+
+			if ($delete_task)
+				$this->session->set_flashdata('message_success', "Client task successfully deleted.");
+			else
+				$this->session->set_flashdata('message_failure', "Could not delete client task.");
+				
+			redirect("profiles/view");
+		} else {
+			$this->session->set_flashdata('message_notification', 'No task ID in URL. Please try again.');
+			redirect("profiles/view");
+		}
+	}
+
+	function mark_not_started($task_id = NULL)
+	{
+		if ($task_id) {
+			$update_task = $this->db
+				->where('profile_task_id', $task_id)
+				->update('profile_tasks', array('status' => 'Not Started'));
+
+			if ($update_task)
+				$this->session->set_flashdata('message_success', "Task successfully marked as not started.");
+			else
+				$this->session->set_flashdata('message_failure', "Could not mark task not started.");
+				
+			redirect('profiles/view');
+		} else {
+			$this->session->set_flashdata('message_notification', 'No task ID in URL. Please try again.');
+			redirect('profiles/view');
+		}
+	}
+
+	function mark_pending($task_id = NULL)
+	{
+		if ($task_id) {
+			$update_task = $this->db
+				->where('profile_task_id', $task_id)
+				->update('profile_tasks', array('status' => 'Pending'));
+
+			if ($update_task)
+				$this->session->set_flashdata('message_success', "Task successfully marked as pending.");
+			else
+				$this->session->set_flashdata('message_failure', "Could not mark task pending.");
+				
+			redirect('profiles/view');
+		} else {
+			$this->session->set_flashdata('message_notification', 'No task ID in URL. Please try again.');
+			redirect('profiles/view');
+		}	
+	}
+
+	function mark_completed($task_id = NULL)
+	{
+		if ($task_id) {
+			$update_task = $this->db
+				->where('profile_task_id', $task_id)
+				->update('profile_tasks', array('status' => 'Completed'));
+
+			if ($update_task)
+				$this->session->set_flashdata('message_success', "Task successfully marked as completed.");
+			else
+				$this->session->set_flashdata('message_failure', "Could not mark task completed.");
+				
+			redirect('profiles/view');
+		} else {
+			$this->session->set_flashdata('message_notification', 'No task ID in URL. Please try again.');
 			redirect('profiles/view');
 		}
 	}
