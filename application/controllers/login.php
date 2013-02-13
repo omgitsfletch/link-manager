@@ -35,6 +35,7 @@ class Login extends CI_Controller
 				$this->session->set_userdata('logged_in', TRUE);
 				$this->session->set_userdata('user_id', $login_result->id);
 				$this->session->set_userdata('group_id', $login_result->group_id);
+				$this->session->set_userdata('username', $username); // Added by CEDCOSS
 				
 				$get_default_site = $this->db->select('site_id AS id,name,url')
 					->from('sites')
@@ -61,6 +62,7 @@ class Login extends CI_Controller
 	{
 		$this->session->unset_userdata('logged_in');
 		$this->session->unset_userdata('user_id');
+		$this->session->unset_userdata('username'); // Added by CEDCOSS
 		
 		redirect('login');
 	}

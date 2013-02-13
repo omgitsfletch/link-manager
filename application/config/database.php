@@ -49,9 +49,9 @@ $active_group = ENVIRONMENT;
 $active_record = TRUE;
 
 $db['devel']['hostname'] = 'localhost';
-$db['devel']['username'] = 'root';
-$db['devel']['password'] = 'yoshi123';
-$db['devel']['database'] = 'links';
+$db['devel']['username'] = 'webilyst_writers';
+$db['devel']['password'] = 'hSm?SDd$,m)s';
+$db['devel']['database'] = 'webilyst_writers';
 $db['devel']['dbdriver'] = 'mysql';
 $db['devel']['dbprefix'] = '';
 $db['devel']['pconnect'] = FALSE;
@@ -65,9 +65,9 @@ $db['devel']['autoinit'] = TRUE;
 $db['devel']['stricton'] = FALSE;
 
 $db['prod']['hostname'] = 'localhost';
-$db['prod']['username'] = 'obaresc_links';
-$db['prod']['password'] = 'rev0^nQW$%=x';
-$db['prod']['database'] = 'obaresc_link_manager';
+$db['prod']['username'] = 'webilyst_writers';
+$db['prod']['password'] = 'hSm?SDd$,m)s';
+$db['prod']['database'] = 'webilyst_writers';
 $db['prod']['dbdriver'] = 'mysql';
 $db['prod']['dbprefix'] = '';
 $db['prod']['pconnect'] = FALSE;
@@ -79,6 +79,22 @@ $db['prod']['dbcollat'] = 'utf8_general_ci';
 $db['prod']['swap_pre'] = '';
 $db['prod']['autoinit'] = TRUE;
 $db['prod']['stricton'] = FALSE;
+
+$db['writer']['hostname'] = 'localhost';
+$db['writer']['username'] = 'webilyst_writers';
+$db['writer']['password'] = 'hSm?SDd$,m)s';
+$db['writer']['database'] = 'webilyst_writers';
+$db['writer']['dbdriver'] = 'mysql';
+$db['writer']['dbprefix'] = '';
+$db['writer']['pconnect'] = FALSE;
+$db['writer']['db_debug'] = FALSE;
+$db['writer']['cache_on'] = FALSE;
+$db['writer']['cachedir'] = '';
+$db['writer']['char_set'] = 'utf8';
+$db['writer']['dbcollat'] = 'utf8_general_ci';
+$db['writer']['swap_pre'] = '';
+$db['writer']['autoinit'] = TRUE;
+$db['writer']['stricton'] = FALSE;
 
 
 /* End of file database.php */

@@ -2,7 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type='text/javascript' src="<?php echo base_url();?>assets/scripts/jquery-1.7.1.js"></script>
 	<title><?php echo $title; ?></title>
+<!-- **************************** Added By CEDCOSS ************************************** -->
+	<?php if($this->uri->segment(1) == 'admin'){?>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<!-- <link href="<?php echo base_url();?>assets/css/header.css" rel="stylesheet" type="text/css"> -->
+		<link href="<?php echo base_url();?>assets/writer_css/style.css" rel="stylesheet" type="text/css">
+		<!-- Le styles -->
+		<link href="<?php echo base_url();?>assets/writer_css/bootstrap.css" rel="stylesheet">
+		<link href="<?php echo base_url();?>assets/writer_css/bootstrap-responsive.css" rel="stylesheet">
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		    <![endif]-->
+		<!-- Le fav and touch icons
+		<link rel="shortcut icon" href="<?php echo base_url();?>assets/imgage/favicon.ico">
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url();?>assets/imgage/ico/apple-touch-icon-144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url();?>assets/imgage/ico/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url();?>assets/imgage/ico/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="<?php echo base_url();?>assets/imgage/ico/apple-touch-icon-57-precomposed.png"> -->
+		
+		<script type="text/javascript" src="<?php echo base_url();?>assets/scripts/bootstrap.js"></script>
+		<script>
+			var site_url = '<?php echo base_url();?>';
+			var curent_date = '<?php echo date('Y-m-d');?>';
+			var curent_date_time = '<?php echo date('Y-m-d H:i:s');?>';
+		</script>
+		<?php //echo css_asset('screen.css', NULL, array('media' => 'screen', 'title' => 'default')) . "\n";?>
+	<?php }else{?>
+<!-- ****************************************************************************** -->
 	<script type="text/javascript">
 		// Set variable for use in JS redirects for dropdowns, etc.
 		var base_url = '<?php echo base_url(); ?>';
@@ -12,7 +43,7 @@
 	echo css_asset('datePicker.css') . "\n";
 	echo css_asset('jquery.jqplot.css') . "\n";
 
-	echo js_asset('jquery/jquery-1.4.1.min.js') . "\n";
+	//echo js_asset('jquery/jquery-1.4.1.min.js') . "\n";
 	echo js_asset('jquery/jquery.base64.min.js') . "\n";
 	echo js_asset('jquery/ui.core.js') . "\n";
 	echo js_asset('jquery/ui.checkbox.js') . "\n";
@@ -135,6 +166,7 @@
 		$(document).pngFix( );
 	});
 	</script>
+	<?php }?> <!-- Edited by CEDCOSS -->
 </head>
 
 <body>
@@ -211,19 +243,38 @@
 			<!--  start nav -->
 			<div class="nav">
 			<div class="table">
-			<ul class="<?php echo ($this->uri->segment(1) == 'sites' || $this->uri->segment(1) == 'groups') ? 'current' : 'select'; ?>"><li><?php echo anchor('sites/view', '<b>Dashboard</b>'); ?>
-			<div class="<?php echo ($this->uri->segment(1) == 'sites' || $this->uri->segment(1) == 'groups') ? 'select_sub show' : 'select_sub'; ?>">
+		<!-- ---------------------------------------------------------Edited by CEDCOSS-------------------------------------------------------------------- -->
+			<ul class="<?php echo ($this->uri->segment(1) == 'sites' || $this->uri->segment(1) == 'groups'|| $this->uri->segment(2) == 'summary') ? 'current' : 'select'; ?>"><li><?php echo anchor('sites/view', '<b>Dashboard</b>'); ?>
+			<div class="<?php echo ($this->uri->segment(1) == 'sites' || $this->uri->segment(1) == 'groups' || $this->uri->segment(2) == 'summary') ? 'select_sub show' : 'select_sub'; ?>">
+		<!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
 				<ul class="sub">
 					<li class="<?php echo ($this->uri->segment(1) == 'sites' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('sites/view', 'View Sites'); ?></li>
 					<li class="<?php echo ($this->uri->segment(1) == 'sites' && $this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('sites/add', 'Add Site'); ?></li>
-					<li class="<?php echo ($this->uri->segment(1) == 'groups' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('groups/view', 'View Groups'); ?></li>
+					<!-- <li class="<?php echo ($this->uri->segment(1) == 'groups' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('groups/view', 'View Groups'); ?></li> -->
+		<!-- ---------------------------------------------------------Added by CEDCOSS-------------------------------------------------------------------- -->
+					<li class="<?php echo ($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'summary') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/summary', 'Summary'); ?></li>
+		<!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
 				</ul>
 			</div>
 			</li>
 			</ul>
-
 			<div class="nav-divider">&nbsp;</div>
-								
+			
+		<!-- ---------------------------------------------------------Added by CEDCOSS-------------------------------------------------------------------- -->
+			<ul class="<?php if(($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'settings') || ($this->uri->segment(1) == 'categories' && $this->uri->segment(2) == 'view') || ($this->uri->segment(1) == 'types' && $this->uri->segment(2) == 'view') || ($this->uri->segment(1) == 'statuses' && $this->uri->segment(2) == 'view') || ($this->uri->segment(1) == 'groups' && $this->uri->segment(2) == 'view')){echo 'current';}else{echo 'select'; }?>"><li><?php echo anchor('admin/settings', '<b>Settings</b>'); ?>
+			<div class="<?php if(($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'settings') || ($this->uri->segment(1) == 'categories' && $this->uri->segment(2) == 'view') || ($this->uri->segment(1) == 'types' && $this->uri->segment(2) == 'view') || ($this->uri->segment(1) == 'statuses' && $this->uri->segment(2) == 'view') || ($this->uri->segment(1) == 'groups' && $this->uri->segment(2) == 'view')){echo 'select_sub show';}else{echo 'select_sub'; }?>">
+				<ul class="sub">
+					<li class="<?php echo ($this->uri->segment(1) == 'admin' && $this->uri->segment(2) == 'settings') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/settings', 'Content Settings'); ?></li>
+					<li class="<?php echo ($this->uri->segment(1) == 'categories' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('categories/view', 'Categories'); ?></li>
+					<li class="<?php echo ($this->uri->segment(1) == 'types' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('types/view', 'Link Types'); ?></li>
+					<li class="<?php echo ($this->uri->segment(1) == 'statuses' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('statuses/view', 'Statuses'); ?></li>
+					<li class="<?php echo ($this->uri->segment(1) == 'groups' && $this->uri->segment(2) == 'view') ? 'sub_show' : ''; ?>"><?php echo anchor('groups/view', 'Groups'); ?></li>
+				</ul>
+			</div>
+			</li>
+			</ul>
+			<div class="nav-divider">&nbsp;</div>
+		<!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->						
 			<ul class="<?php echo ($this->uri->segment(1) == 'profiles') ? 'current' : 'select'; ?>"><li><?php echo anchor('profiles/view', '<b>Client Profiles</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'profiles') ? 'select_sub show' : 'select_sub'; ?>">
@@ -271,7 +322,9 @@
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
 			<div class="<?php echo ($this->uri->segment(1) == 'reports') ? 'select_sub show' : 'select_sub'; ?>">
 				<ul class="sub">
-					<li class="<?php echo ($this->uri->segment(2) == 'contents') ? 'sub_show' : ''; ?>"><?php echo anchor('../content/admin/reports', 'Reports'); ?></li>
+		<!-- ---------------------------------------------------------Edited by CEDCOSS-------------------------------------------------------------------- -->
+					<li class="<?php echo ($this->uri->segment(2) == 'contents') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/reports', 'Content'); ?></li>
+		<!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -279,30 +332,24 @@
 			</ul>
 
 			<div class="nav-divider">&nbsp;</div>
-
-			<ul class="<?php echo ($this->uri->segment(1) == 'content') ? 'current' : 'select'; ?>"><li><?php echo anchor('../content/admin/articles', '<b>Content</b>'); ?>
+		<!-- ---------------------------------------------------------Edited by CEDCOSS-------------------------------------------------------------------- -->
+			<ul class="<?php echo ($this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == 'articles' || $this->uri->segment(2) == 'published' || $this->uri->segment(2) == 'approved' || $this->uri->segment(2) == 'submitted' || $this->uri->segment(2) == 'rejected' || $this->uri->segment(2) == 'writers' || $this->uri->segment(2) == 'addWriter')) ? 'current' : 'select'; ?>"><li><?php echo anchor('admin/articles', '<b>Content</b>'); ?>
 			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="<?php echo ($this->uri->segment(1) == 'content') ? 'select_sub show' : 'select_sub'; ?>">
+			<div class="<?php if($this->uri->segment(1) == 'admin' && ($this->uri->segment(2) == 'articles' || $this->uri->segment(2) == 'published' || $this->uri->segment(2) == 'approved' || $this->uri->segment(2) == 'submitted' || $this->uri->segment(2) == 'rejected' || $this->uri->segment(2) == 'writers' || $this->uri->segment(2) == 'addWriter')){ echo 'select_sub show'; }else{ echo 'select_sub';} ?>">
 				<ul class="sub">
+					<li class="<?php echo ($this->uri->segment(2) == 'articles') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/articles', 'Articles'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'published') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/published', 'Published'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'approved') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/approved', 'Approved'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'submitted') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/submitted', 'Submitted'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'rejected') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/rejected', 'Rejected'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'writers') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/writers', 'Manage Writers'); ?></li>
+					<li class="<?php echo ($this->uri->segment(2) == 'addWriter') ? 'sub_show' : ''; ?>"><?php echo anchor('admin/addWriter', 'Add Writer'); ?></li>
 				</ul>
 			</div>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 			</li>
 			</ul>
-
-			<div class="nav-divider">&nbsp;</div>
-
-			<ul class="<?php echo ($this->uri->segment(1) == 'writers') ? 'current' : 'select'; ?>"><li><?php echo anchor('../content/admin/writers', '<b>Writers</b>'); ?>
-			<!--[if lte IE 6]><table><tr><td><![endif]-->
-			<div class="<?php echo ($this->uri->segment(1) == 'writers') ? 'select_sub show' : 'select_sub'; ?>">
-				<ul class="sub">
-					<li class="<?php echo ($this->uri->segment(2) == 'add') ? 'sub_show' : ''; ?>"><?php echo anchor('../content/admin/addWriter', 'Add Writer'); ?></li>
-				</ul>
-			</div>
-			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			</li>
-			</ul>
-
+		<!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
 			<div class="clear"></div>
 			</div>
 			<div class="clear"></div>

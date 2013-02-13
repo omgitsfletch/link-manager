@@ -1,1 +1,6 @@
-/application/logs/*.php
+application/logs/*.php
+application/config/config.php
+application/config/database.php
+.htaccess
+.htaccess.dev
+.htaccess.live

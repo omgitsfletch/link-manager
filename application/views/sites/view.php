@@ -112,12 +112,12 @@
 	<div class="clear">&nbsp;</div><br/>
 	
 	<!--  start page-heading -->
-	<div id="page-heading">
+	<!-- <div id="page-heading">
 		<h1><?php echo $title2; ?></h1>
-	</div>
+	</div> -->
 	<!-- end page-heading -->
 
-	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+	<!-- <table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
 	<tr>
 		<th rowspan="3" class="sized"><?php echo image_asset('shared/side_shadowleft.jpg', NULL, array('width' => 20, 'height' => 150)); ?></th>
 		<th class="topleft"></th>
@@ -127,24 +127,24 @@
 	</tr>
 	<tr>
 		<td id="tbl-border-left"></td>
-		<td>
+		<td> -->
 		<!--  start content-table-inner ...................................................................... START -->
-		<div id="content-table-inner">
+		<!-- <div id="content-table-inner"> -->
 		
 			<!--  start table-content  -->
-			<div id="table-content" style="min-height:150px;"	>
+			<!-- <div id="table-content" style="min-height:150px;"	>
 				<?php echo anchor('categories/view', 'View/Edit Categories'); ?><br/><br/>
 				<?php echo anchor('types/view', 'View/Edit Link Types'); ?><br/><br/>
 				<?php echo anchor('statuses/view', 'View/Edit Statuses'); ?><br/><br/>
 				<?php echo anchor('groups/view', 'View/Edit Groups'); ?>
-			</div>
+			</div> -->
 			<!--  end content-table  -->
 			
-			<div class="clear"></div>
+			<!-- <div class="clear"></div>
 		 
-		</div>
+		</div> -->
 		<!--  end content-table-inner ............................................END  -->
-		</td>
+		<!-- </td>
 		<td id="tbl-border-right"></td>
 	</tr>
 	<tr>
@@ -153,7 +153,7 @@
 		<th class="sized bottomright"></th>
 	</tr>
 	</table>
-	<div class="clear">&nbsp;</div>
+	<div class="clear">&nbsp;</div> -->
 
 </div>
 <!--  end content -->

@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= (ENVIRONMENT == 'devel') ? 'http://links.local/' : 'https://www.ziffen.com/tools/';
+$config['base_url']	= (ENVIRONMENT == 'devel') ? 'http://webilyst.com/projects/writers/link-manager/' : 'http://webilyst.com/projects/writers/link-manager/';
 
 /*
 |--------------------------------------------------------------------------

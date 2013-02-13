@@ -85,7 +85,7 @@
 				<form id="mainform" action="<?php echo base_url() . 'links/delete_multi'; ?>" method="POST">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<thead>
-					<th class="table-header-check"></th>
+					<th class="table-header-check"><a id="toggle-all" ></a> </th>
 					<th class="table-header-repeat line-left minwidth-1" style="width:85px;"><a href="#">Date</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="#">URL</a></th>
 					<th class="table-header-repeat line-left minwidth-1"><a href="#">Text</a></th>
@@ -110,6 +110,7 @@
 						<?php echo anchor("links/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'link\')')); ?>
 						<?php echo anchor_popup("links/view_details/{$row->id}", ' ', array_merge($view_details_attribs, array('title' => 'View Details', 'class' => 'icon-3 info-tooltip'))); ?>
 						<?php echo anchor("links/add/{$row->id}", ' ', array('title' => 'Copy', 'class' => 'icon-5 info-tooltip')); ?>
+
 					</td>
 				</tr>
 <?php endforeach; ?>

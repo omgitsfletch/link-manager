@@ -3,25 +3,25 @@
     RewriteBase /
 
 	# Forbid any requests to the application & system folders.
-    RewriteCond %{REQUEST_URI} ^/(application|system).*$
+    RewriteCond %{REQUEST_URI} ^/projects/writers/link-manager/(application|system).*$
     RewriteRule ^(.*)$ - [F,L]
 
 	# Any items in assets folder that are not true files/directories are routed through application.
-	RewriteCond %{REQUEST_URI} ^/(assets)
+	RewriteCond %{REQUEST_URI} ^/projects/writers/link-manager/(assets)
 	RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d 
-    RewriteRule ^(.*)$ /index.php/$1 [L]
+    RewriteRule ^(.*)$ /projects/writers/link-manager/index.php/$1 [L]
 	
 	# Empty requests (top-level of application) should be routed to the view links page.
-	RewriteCond %{REQUEST_URI} ^/$
-	RewriteRule ^(.*)$ /links/view [R=302,L]
+	RewriteCond %{REQUEST_URI} ^/projects/writers/link-manager/$
+	RewriteRule ^(.*)$ /projects/writers/link-manager/links/view [R=302,L]
 	
 	# Any remaining items are routed through application also
-	RewriteCond %{REQUEST_URI} !^/(assets|index\.php)
-    RewriteRule ^(.*)$ /index.php/$1 [L]
+	RewriteCond %{REQUEST_URI} !^/projects/writers/link-manager/(assets|index\.php)
+    RewriteRule ^(.*)$ /projects/writers/link-manager/index.php/$1 [L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>
     # If we don't have mod_rewrite installed, all 404's can be sent to index.php, and everything works as normal.
-    ErrorDocument 404 /index.php
+    ErrorDocument 404 /projects/writers/link-manager/index.php
 </IfModule>

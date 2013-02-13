@@ -1,0 +1,221 @@
+#page-top-outer	{
+	//background: url(../images/shared/top_bg.jpg) top center repeat-x;
+	border-bottom: 1px solid #7e7e7e;
+	height: 92px;
+}
+#page-top	{
+	margin: 0 auto;
+	max-width: 1260px;
+	min-width: 850px;
+	position: relative;
+}
+#logo	{
+	float: left;
+	margin: 45px 0 0 15px;
+}
+#logo	a	{
+	display: block;
+}
+#top-search	{
+	display: inline;
+	float: right;
+	position: relative;
+	margin: 10px 20px 0 0;
+	z-index: 20;
+}
+
+.nav-outer-repeat	{
+	background: url(../images/shared/nav/repeat.jpg) repeat-x;
+	height: 77px;
+}
+.nav-outer	{
+	margin: 0 auto;
+	max-width: 1260px;
+	min-width: 850px;
+}
+#nav-right	{
+	float: right;
+	position: relative;
+	width: 100px;
+	z-index: 0;
+}
+#nav-right a	{
+	display: block;
+	float: left;
+	margin: 0px 0 0 0;
+}
+a#logout {
+    margin: 10px 0 0 5px;
+}
+.nav	{
+	float: left;
+	font-family: Tahoma;
+	font-size: 13px;
+	height: 38px;
+	position: relative;
+	/*width: 700px;*/ /*Edited By CEDCOSS*/
+	min-width: 700px;
+	z-index: 500;
+}
+.nav-divider	{
+	background: url(../images/shared/nav/divider.jpg) top no-repeat;
+	float: left;
+	height: 40px;
+	width: 15px;
+}
+.nav .table	{
+	display: table;
+}
+.nav .select, .nav .current	{
+	display: table-cell;
+	float: left;
+	list-style: none;
+	margin: 0 0px 0 0;
+	padding: 0;
+	white-space: nowrap;
+}
+.nav li	{
+	float: left;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+.nav .select a	{
+	background: url(../images/shared/nav/pro_line_0.gif);
+	color: #fff;
+	display: block;
+	float: left;
+	height: 37px;
+	line-height: 35px;
+	padding: 0 20px 0 20px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+.nav .current a	{
+	background: url(../images/shared/nav/pro_line_1.gif);
+	color: #fff;
+	display: block;
+	float: left;
+	height: 37px;
+	line-height: 35px;
+	padding: 0 0 0 10px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+.nav .current a b	{
+	background: url(../images/shared/nav/pro_line_1.gif) right top;
+	display: block;
+	padding: 0 20px 0 10px;
+}
+.nav .select a:hover, 
+.nav .select li:hover a	{
+	background: url(../images/shared/nav/pro_line_1.gif);
+	color: #fff;
+	cursor: pointer;
+	padding: 0 0 0 10px;
+}
+.nav .select a:hover b, 
+.nav .select li:hover a b	{
+	background: url(../images/shared/nav/pro_line_1.gif) right top;
+	cursor: pointer;
+	display: block;
+	float: left;
+	padding: 0 20px 0 10px;
+}
+.nav .select_sub	{
+	display: none;
+	margin: 0 0 0 10px;
+}
+
+.nav table	{
+	border-collapse: collapse;
+	font-size: 1em;
+	height: 0;
+	margin: -1px;
+	width: 0;
+}
+.nav .sub	{
+	display: table;
+	list-style: none;
+	/* margin: 0 auto; */
+	padding: 0;
+	margin:0;
+}
+.nav .sub_active .current_sub a, 
+.nav .sub_active a:hover	{
+	background: transparent;
+	color: #fff;
+}
+.nav .select :hover .select_sub, 
+.nav .current .show	{
+	background: url(../images/shared/nav/back_0.gif);	 
+	display: block !important;
+	left: 0;
+	padding: 0;
+	position: absolute;
+	text-align: left;
+	top: 37px;
+	width: 100%; /*Edited By CEDCOSS*/
+	z-index: 100;
+}
+.nav .current .show	{
+	z-index: 10;
+}
+.nav .select :hover .sub li a, 
+.nav .current .show .sub li a	{
+	background: transparent;
+	border: 0;
+	color: #fff;
+	font-weight: bold;
+	font-size: 13px;
+	display: block;
+	float: left;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	white-space: nowrap;
+}
+.nav .current .sub li.sub_show a	{
+	background: url(../images/shared/nav/menus/back_1.gif);
+	color: #94b52c;
+	cursor: default;
+}
+.nav .select :hover .sub li a:hover, 
+.nav .current .sub li a:hover	{
+	background: url(../images/shared/nav/menus/back_1.gif);
+	color: #94b52c;
+	visibility: visible;
+}
+.account-content{
+   display:none;
+ }   
+ 
+ #footer	{
+height: 70px;
+	 
+	margin: 80px auto 0px auto;
+	padding: 0px 0 0 0;
+	text-align: left;
+	min-width: 780px;
+	max-width: 1260px;
+}
+#footer-left	{
+	color: #818181;
+	 
+	font-size: 11px;
+	line-height: 11px;
+	padding: 15px 0 15px 25px;
+	margin: 0 20px;
+	
+	border-top: 1px solid #dbdbdb;
+	border-bottom: 1px solid #dbdbdb;
+	background: url(../images/shared/icon_idlogo.jpg) no-repeat 0 12px;
+} 
+#footer-left a	{
+	color: #818181;
+	text-decoration: none;
+}
+#footer-left 	 a.selected,
+#footer-left 	 a:hover	{
+	color: #000;
+	text-decoration: none;
+}

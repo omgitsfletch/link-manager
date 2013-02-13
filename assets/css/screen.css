@@ -1,3 +1,8 @@
+@font-face {
+ font-family: "Tahoma";
+ src: url(../fonts/Tahoma.eot);
+ src: local("Tahoma"), url(../fonts/Tahoma.ttf) format("truetype");
+}
 *	{
 	margin: 0;
 	padding: 0;
@@ -873,6 +878,7 @@ font-family: Tahoma;
 	display: block;
 	float: left;
 	margin: 0px 0 0 0;
+	font-family: "Tahoma";
 }
 .account-content	{
 	background: #454545 url(../images/shared/nav/account_drop_bg.gif) no-repeat bottom;
@@ -949,7 +955,8 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 	font-size: 13px;
 	height: 38px;
 	position: relative;
-	width: 700px;
+	/*width: 700px;*/ /*Edited By CEDCOSS*/
+	font-family: "Tahoma";
 	min-width: 700px;
 	z-index: 500;
 }
@@ -976,6 +983,7 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 	height: auto;
 	margin: 0;
 	padding: 0;
+	font-family: "Tahoma";
 }
 .nav .select a	{
 	background: url(../images/shared/nav/pro_line_0.gif);
@@ -1053,7 +1061,7 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 	position: absolute;
 	text-align: left;
 	top: 37px;
-	width: 700px;
+	width: 100%; /*Edited By CEDCOSS*/
 	z-index: 100;
 }
 .nav .current .show	{
