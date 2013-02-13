@@ -58,7 +58,6 @@
 <?php endif; ?>
 
 				<!--  start product-table ..................................................................................... -->
-
 				<div style="float:left;">
 					<span style="float:left; padding-right: 20px; line-height:30px; font-weight: bold;">Category:</span>
 					<div style="float:right;">
@@ -102,21 +101,30 @@
 
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<thead>
-					<th class="table-header-repeat line-left minwidth-1"><a href="">Domain</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="">Name</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="">Email</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="">Category</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="">Type</a></th>
-					<th class="table-header-repeat line-left minwidth-1"><a href="">Price</a></th>
+					<th class="table-header-check"></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Domain</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Name</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Email</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Category</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Type</a></th>
+					<th class="table-header-repeat line-left minwidth-1"><a href="#">Price</a></th>
+					<th class="table-header-options-small line-left"><a href="#">Options</a></th>
 				</thead>
 <?php foreach ($links AS $index => $row): ?>
 				<tr>
+					<td><?php if ($row->master_link == 1) { echo  "<input type=\"checkbox\" name=\"items[{$row->id}]\" />"; } ?></td>
 					<td><?php echo $row->location; ?></td>
 					<td><?php echo $row->contact_name; ?></td>
 					<td><?php echo $row->contact_email; ?></td>
 					<td><?php echo $row->category; ?></td>
 					<td><?php echo $row->type; ?></td>
 					<td><?php echo ($row->price) ? "\${$row->price} ({$row->period})" : ''; ?></td>
+					<td class="options-width-small">
+						<?php if ($row->master_link == 1): ?>
+							<?php echo anchor("links/edit_master/{$row->id}", ' ', array('title' => 'Edit', 'class' => 'icon-1 info-tooltip')); ?>
+							<?php echo anchor("links/delete/{$row->id}", ' ', array('title' => 'Delete', 'class' => 'icon-2 info-tooltip', 'onclick' => 'return confirm_delete(\'link\')')); ?>
+						<?php endif; ?>
+					</td>
 				</tr>
 <?php endforeach; ?>
 				</table>
@@ -129,16 +137,14 @@
 			<!--  end content-table  -->
 
 			<!--  start actions-box ............................................... -->
-			<!--
 			<div id="actions-box">
 				<a href="" class="action-slider"></a>
 				<div id="actions-box-slider">
-					<?php echo anchor('links/add', 'Add', array('class' => 'action-edit')); ?>
+					<?php echo anchor('links/add_master', 'Add Link', array('class' => 'action-edit')); ?>
 					<?php echo anchor('javascript://', 'Delete', array('class' => 'action-delete', 'onclick' => '$(\'#mainform\').submit();')); ?>
 				</div>
 				<div class="clear"></div>
 			</div>
-			!-->
 			<!-- end actions-box........... -->
 			
 			<!--  start paging..................................................... -->
